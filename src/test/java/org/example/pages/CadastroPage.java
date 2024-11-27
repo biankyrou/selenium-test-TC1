@@ -8,16 +8,16 @@ import org.openqa.selenium.support.PageFactory;
 public class CadastroPage {
     private WebDriver driver;
 
-    @FindBy(name = "nome")
+    @FindBy(xpath = "//*[@id='nome']")
     private WebElement nomeInput;
 
-    @FindBy(name = "idade")
+    @FindBy(xpath = "//*[@id=\"idade\"]")
     private WebElement idadeInput;
 
-    @FindBy(xpath = "//button[text()='Cadastrar']")
+    @FindBy(xpath = "//*[@id=\"cadastroForm\"]/button")
     private WebElement cadastrarButton;
 
-    @FindBy(xpath = "//button[text()='Visualizar Pessoas Cadastradas']")
+    @FindBy(xpath = "/html/body/div/a")
     private WebElement visualizarButton;
 
     public CadastroPage(WebDriver driver){
