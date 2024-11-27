@@ -25,6 +25,38 @@ public class CadastroPage {
         PageFactory.initElements(driver, this);
     }
 
+    public boolean isNomeInputVisible() {
+        try {
+            return nomeInput.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isIdadeInputVisible() {
+        try {
+            return idadeInput.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isCadastrarButtonVisible() {
+        try {
+            return cadastrarButton.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isVisualizarButtonVisible() {
+        try {
+            return visualizarButton.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void preencherNome(String nome){
         nomeInput.clear();
         nomeInput.sendKeys(nome);
@@ -32,6 +64,13 @@ public class CadastroPage {
 
     public void preencherIdade(String idade){
         idadeInput.clear();
+        idadeInput.sendKeys(idade);
+    }
+
+    public void preencherCadastro(String nome, String idade){
+        nomeInput.clear();
+        idadeInput.clear();
+        nomeInput.sendKeys(nome);
         idadeInput.sendKeys(idade);
     }
 
