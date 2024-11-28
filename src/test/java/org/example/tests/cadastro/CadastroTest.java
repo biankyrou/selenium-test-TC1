@@ -76,45 +76,42 @@ public class CadastroTest {
 
 
     //testes de equivalência VÁLIDOS para campo de entrada 'Nome' :
+    private void testarPreenchimentoNome(String entrada, String esperado) {
+        cadastroPage.preencherNome(entrada);
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
+    }
+
+
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
     public void testNomeValidoComCaracteresEspeciais() {
-        cadastroPage.preencherNome("Jo@o-Silva!");
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals("Jo@o-Silva!", valorAtual, "O campo 'Nome' não contém o valor esperado!");
+        testarPreenchimentoNome("Jo@o-Silva!", "Jo@o-Silva!");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com números")
     public void testNomeValidoComNumeros() {
-        cadastroPage.preencherNome("João123");
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals("João123", valorAtual, "O campo 'Nome' não contém o valor esperado!");
+        testarPreenchimentoNome("João123", "João123");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string vazia")
     public void testNomeStringVazia() {
-        cadastroPage.preencherNome("");
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals("", valorAtual, "O campo 'Nome' não contém o valor esperado!");
+        testarPreenchimentoNome("", "");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
-    public void testNomeValidoComEspacosds() {
-        cadastroPage.preencherNome("Tiago de Lemos");
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals("Tiago de Lemos", valorAtual, "O campo 'Nome' não contém o valor esperado!");
+    public void testNomeValidoComEspacos() {
+        testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita quebra de linha")
     public void testNomeComQuebraDeLinha() {
         String nomeComQuebraDeLinha = "Tiago\\nLemos \\ud83c\\udf89 \\ud83e\\udd84";
-        cadastroPage.preencherNome(nomeComQuebraDeLinha);
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals(nomeComQuebraDeLinha, valorAtual, "O campo 'Nome' não contém o valor esperado!");
+        testarPreenchimentoNome(nomeComQuebraDeLinha, nomeComQuebraDeLinha);
     }
 
 
@@ -125,9 +122,15 @@ public class CadastroTest {
     @DisplayName("Verifica se o campo 'Nome' aceita string longa")
     public void testNomeInvalidoStringLonga() {
         String nomeLongo = "a".repeat(100000);
-        cadastroPage.preencherNome(nomeLongo);
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals(nomeLongo, valorAtual, "O campo 'Nome' não contém o valor esperado!");
+        testarPreenchimentoNome(nomeLongo, nomeLongo); // Se travar, o erro será capturado no teste
     }
+
+//    @Test
+//    @DisplayName("Verifica se o campo 'Nome' não aceita valor nulo")
+//    public void testNomeNull() {
+//        cadastroPage.nomeInput.clear();
+//        Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo 'Nome' não gerou erro ao ser preenchido com valor nulo!");
+//    }
+
 
 }
