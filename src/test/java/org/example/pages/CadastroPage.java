@@ -63,12 +63,12 @@ public class CadastroPage {
         nomeInput.sendKeys(nome);
     }
 
-    public void preencherIdade(Integer idade) {
+    public void preencherIdade(Integer idade){
         idadeInput.clear();
         idadeInput.sendKeys(idade.toString());
     }
 
-    public void preencherCadastro(String nome, Integer idade) {
+    public void preencherCadastro(String nome, Integer idade){
         nomeInput.clear();
         idadeInput.clear();
         nomeInput.sendKeys(nome);
