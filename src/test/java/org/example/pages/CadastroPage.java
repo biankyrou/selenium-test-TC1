@@ -63,16 +63,16 @@ public class CadastroPage {
         nomeInput.sendKeys(nome);
     }
 
-    public void preencherIdade(String idade){
+    public void preencherIdade(Integer idade) {
         idadeInput.clear();
-        idadeInput.sendKeys(idade);
+        idadeInput.sendKeys(idade.toString());
     }
 
-    public void preencherCadastro(String nome, String idade){
+    public void preencherCadastro(String nome, Integer idade) {
         nomeInput.clear();
         idadeInput.clear();
         nomeInput.sendKeys(nome);
-        idadeInput.sendKeys(idade);
+        idadeInput.sendKeys(idade.toString());
     }
 
     public void clicarCadastrar(){
@@ -86,4 +86,10 @@ public class CadastroPage {
     public String getNomeValue() {
         return nomeInput.getAttribute("value");
     }
+
+    public Integer getIdadeValue() {
+        String valor = idadeInput.getAttribute("value");
+        return Integer.parseInt(valor);  // Converte a String para Integer
+    }
+
 }

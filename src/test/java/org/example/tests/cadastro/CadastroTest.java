@@ -27,7 +27,7 @@ public class CadastroTest {
 
     @AfterEach
     public void tearDown(){
-        driver.quit();
+//        driver.quit();
     }
 
 
@@ -140,6 +140,19 @@ public class CadastroTest {
     //-------------------------------------------------------------------------------------
 
     //testes de equivalência para campo de entrada 'Idade' :
+    private void testarPreenchimentoIdade(Integer entrada, Integer esperado) {
+        cadastroPage.preencherIdade(entrada);
+        Integer valorAtual = cadastroPage.getIdadeValue();
+        Assertions.assertEquals(esperado, valorAtual, "O campo 'Idade' não contém o valor esperado!");
+    }
+
+    @Test
+    @DisplayName("Verifica se idade aceita um número inteiro de 1 à 100")
+    public void testIdadeValida() {
+        testarPreenchimentoIdade(10, 10);
+    }
+
+
 
 
 
