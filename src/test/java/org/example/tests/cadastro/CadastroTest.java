@@ -5,6 +5,7 @@ import org.example.pages.CadastroPage;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -96,6 +97,13 @@ public class CadastroTest {
         Assertions.assertTrue(cadastroPage.isNomeInputVisible());
     }
 
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
+    public void testNomeValidoComEspacosds() {
+        cadastroPage.preencherNome("Tiago de Lemos");
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("Tiago de Lemos", valorAtual, "O campo 'Nome' não contém o valor esperado!");
+    }
 
     //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
 
