@@ -147,9 +147,21 @@ public class CadastroTest {
     }
 
     @Test
-    @DisplayName("Verifica se idade aceita um número inteiro de 1 à 100")
+    @DisplayName("Verifica se idade aceita um número inteiro de 0 à 122")
     public void testIdadeValida() {
         testarPreenchimentoIdade(10, 10);
+    }
+
+    @Test
+    @DisplayName("Verifica se idade aceita um número inteiro 0 (para meses)")
+    public void testIdadeNumeroZero() {
+        testarPreenchimentoIdade(0, 0);
+    }
+
+    @Test
+    @DisplayName("Verifica se idade aceita um número inteiro 122 (maior idade registrada)")
+    public void testIdadeNumeroMaior() {
+        testarPreenchimentoIdade(122, 122);
     }
 
 
