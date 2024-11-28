@@ -108,6 +108,15 @@ public class CadastroTest {
         Assertions.assertEquals("Tiago de Lemos", valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
 
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita quebra de linha")
+    public void testNomeComQuebraDeLinha() {
+        String nomeComQuebraDeLinha = "Tiago\\nLemos \\ud83c\\udf89 \\ud83e\\udd84";
+        cadastroPage.preencherNome(nomeComQuebraDeLinha);
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals(nomeComQuebraDeLinha, valorAtual, "O campo 'Nome' não contém o valor esperado!");
+    }
+
 
     //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
     // documentação: reportar limitação do sistema - limite de caracteres
@@ -120,7 +129,5 @@ public class CadastroTest {
         String valorAtual = cadastroPage.getNomeValue();
         Assertions.assertEquals(nomeLongo, valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
-
-
 
 }
