@@ -28,6 +28,19 @@ public class ListaPage {
         return false;
     }
 
+    public int encontrarIndicePessoa(String nome) {
+        List<WebElement> listaDePessoas = driver.findElements(By.xpath("//*[@id='listaPessoas']/li"));
+
+        for (int i = 0; i < listaDePessoas.size(); i++) {
+            WebElement pessoa = listaDePessoas.get(i);
+
+            if (pessoa.getText().contains(nome)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
     public WebElement getBotaoEditar(int indice) {
         return driver.findElement(By.xpath("//*[@id='listaPessoas']/li[" + indice + "]/div/button[1]"));
     }
