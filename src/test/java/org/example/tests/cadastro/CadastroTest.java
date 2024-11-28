@@ -108,7 +108,18 @@ public class CadastroTest {
         Assertions.assertEquals("Tiago de Lemos", valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
 
+
     //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
+    // documentação: reportar limitação do sistema - limite de caracteres
+    // teste TRAVOU
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita string longa")
+    public void testNomeInvalidoStringLonga() {
+        String nomeLongo = "a".repeat(100000);
+        cadastroPage.preencherNome(nomeLongo);
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals(nomeLongo, valorAtual, "O campo 'Nome' não contém o valor esperado!");
+    }
 
 
 
