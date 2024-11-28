@@ -75,23 +75,38 @@ public class CadastroTest {
     }
 
 
-    //testes de equivalência VÁLIDOS para campo de entrada 'Nome' :
+    //testes de equivalência para campo de entrada 'Nome' :
     private void testarPreenchimentoNome(String entrada, String esperado) {
         cadastroPage.preencherNome(entrada);
         String valorAtual = cadastroPage.getNomeValue();
         Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
 
+    //VÁLIDOS
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita uma string")
+    public void testeNomePadrao(){
+        testarPreenchimentoNome("Tiago", "Tiago");
+    }
+
 
     @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
+    public void testNomeComEspacos() {
+        testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
+    }
+
+
+    //INVÁLIDOS
+    @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
-    public void testNomeValidoComCaracteresEspeciais() {
+    public void testNomeComCaracteresEspeciais() {
         testarPreenchimentoNome("Jo@o-Silva!", "Jo@o-Silva!");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com números")
-    public void testNomeValidoComNumeros() {
+    public void testNomeComNumeros() {
         testarPreenchimentoNome("João123", "João123");
     }
 
@@ -102,27 +117,17 @@ public class CadastroTest {
     }
 
     @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
-    public void testNomeValidoComEspacos() {
-        testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
-    }
-
-    @Test
     @DisplayName("Verifica se o campo 'Nome' aceita quebra de linha")
     public void testNomeComQuebraDeLinha() {
         String nomeComQuebraDeLinha = "Tiago\\nLemos \\ud83c\\udf89 \\ud83e\\udd84";
         testarPreenchimentoNome(nomeComQuebraDeLinha, nomeComQuebraDeLinha);
     }
 
-
-    //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
-    // documentação: reportar limitação do sistema - limite de caracteres
-    // teste TRAVOU
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita string longa")
-    public void testNomeInvalidoStringLonga() {
-        String nomeLongo = "a".repeat(100000);
-        testarPreenchimentoNome(nomeLongo, nomeLongo); // Se travar, o erro será capturado no teste
+    public void testNomeStringLonga() {
+        String nomeLongo = "a".repeat(100000);  //dá bug
+        testarPreenchimentoNome(nomeLongo, nomeLongo);
     }
 
 //    @Test
@@ -131,6 +136,13 @@ public class CadastroTest {
 //        cadastroPage.nomeInput.clear();
 //        Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo 'Nome' não gerou erro ao ser preenchido com valor nulo!");
 //    }
+
+    //-------------------------------------------------------------------------------------
+
+    //testes de equivalência para campo de entrada 'Idade' :
+
+
+
 
 
 }
