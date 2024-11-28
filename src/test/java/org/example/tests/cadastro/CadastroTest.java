@@ -89,7 +89,12 @@ public class CadastroTest {
         Assertions.assertTrue(cadastroPage.isNomeInputVisible());
     }
 
-
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita uma string vazia")
+    public void testNomeStringVazia() {
+        cadastroPage.preencherNome("");
+        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+    }
 
 
     //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
