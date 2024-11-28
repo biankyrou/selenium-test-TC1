@@ -80,21 +80,24 @@ public class CadastroTest {
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
     public void testNomeValidoComCaracteresEspeciais() {
         cadastroPage.preencherNome("Jo@o-Silva!");
-        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("Jo@o-Silva!", valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string com números")
     public void testNomeValidoComNumeros() {
         cadastroPage.preencherNome("João123");
-        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("João123", valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
 
     @Test
     @DisplayName("Verifica se o campo 'Nome' aceita uma string vazia")
     public void testNomeStringVazia() {
         cadastroPage.preencherNome("");
-        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("", valorAtual, "O campo 'Nome' não contém o valor esperado!");
     }
 
     @Test
