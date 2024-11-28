@@ -172,6 +172,8 @@ public class CadastroTest {
         testarPreenchimentoIdade(1000, 1000);
     }
 
+    // -----------------PREENCHIMENTO CADASTRO-----------------------
+
 
     @Test
     @DisplayName("Testa o preenchimento do cadastro com válores válidos")
@@ -253,6 +255,24 @@ public class CadastroTest {
         Assertions.assertEquals("Sucesso!\n" +
                 "Pessoa cadastrada com sucesso!\n" +
                 "OK", mensagemPopUp);
+    }
+
+
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
+    public void testPreenchimentoFormularioCadastroNomeNull() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherIdade(30);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
     }
 
 
