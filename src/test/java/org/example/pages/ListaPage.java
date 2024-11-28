@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 
 public class ListaPage {
     private WebDriver driver;
@@ -14,6 +16,17 @@ public class ListaPage {
 
     @FindBy(xpath = "/html/body/div/a")
     private WebElement voltarParaCadastroButton;
+
+    public boolean isPessoaNaLista(String nome) {
+        List<WebElement> listaDePessoas = driver.findElements(By.xpath("//*[@id='listaPessoas']/li"));
+
+        for (WebElement pessoa : listaDePessoas) {
+            if (pessoa.getText().contains(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public WebElement getBotaoEditar(int indice) {
         return driver.findElement(By.xpath("//*[@id='listaPessoas']/li[" + indice + "]/div/button[1]"));
@@ -32,6 +45,8 @@ public class ListaPage {
         WebElement botaoExcluir = getBotaoExcluir(indice);
         botaoExcluir.click();
     }
+
+
 
 
     //*[@id="listaPessoas"]/li[1]/div/button[1]
