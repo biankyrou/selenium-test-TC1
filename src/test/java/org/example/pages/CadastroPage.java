@@ -26,6 +26,12 @@ public class CadastroPage {
     @FindBy(xpath = "/html/body/div/a")
     private WebElement visualizarButton;
 
+    @FindBy(xpath = "/html/body/div[2]/div")
+    private WebElement popup;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[6]/button[1]")
+    private WebElement okPopUpButton;
+
     public CadastroPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -97,6 +103,10 @@ public class CadastroPage {
         return Integer.parseInt(valor);  // Converte a String para Integer
     }
 
+    public WebElement getCadastrarButton() {
+        return cadastrarButton;
+    }
+
 
     private void waitForElement(WebElement element) {
         try {
@@ -124,6 +134,15 @@ public class CadastroPage {
         waitForElement(visualizarButton);
     }
 
+    public WebElement waitForBotaoClicavel(WebElement botaoLocator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.elementToBeClickable(botaoLocator));
+    }
 
+    public void waitForPopupAndClickConfirmButton() {
+        waitForElement(popup);
+        waitForBotaoClicavel(okPopUpButton);
+        okPopUpButton.click();
+    }
 
 }

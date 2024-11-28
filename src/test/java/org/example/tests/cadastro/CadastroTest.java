@@ -3,13 +3,11 @@ package org.example.tests.cadastro;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -28,7 +26,7 @@ public class CadastroTest {
 
     @AfterEach
     public void tearDown(){
-        driver.quit();
+//        driver.quit();
     }
 
 
@@ -176,10 +174,21 @@ public class CadastroTest {
 
 
     @Test
+    @DisplayName("Testa o preenchimento do e-mail com válores válidos")
     public void testPreenchimentoFormularioCadastro() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
         cadastroPage.preencherCadastro("João Silva", 25);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
         cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickConfirmButton();
     }
+
+
 
 
 
