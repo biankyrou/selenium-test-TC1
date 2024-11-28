@@ -29,6 +29,9 @@ public class CadastroPage {
     @FindBy(xpath = "/html/body/div[2]/div")
     private WebElement popup;
 
+    @FindBy(xpath = "//*[@id=\"swal2-title\"]")
+    private WebElement successMessagePopUp;
+
     @FindBy(xpath = "/html/body/div[2]/div/div[6]/button[1]")
     private WebElement okPopUpButton;
 
@@ -107,6 +110,10 @@ public class CadastroPage {
         return cadastrarButton;
     }
 
+    public String getPopupMessageSuccess() {
+        return popup.getText();
+    }
+
 
     private void waitForElement(WebElement element) {
         try {
@@ -139,7 +146,7 @@ public class CadastroPage {
         return wait.until(ExpectedConditions.elementToBeClickable(botaoLocator));
     }
 
-    public void waitForPopupAndClickConfirmButton() {
+    public void waitForPopupAndClickOkButton() {
         waitForElement(popup);
         waitForBotaoClicavel(okPopUpButton);
         okPopUpButton.click();

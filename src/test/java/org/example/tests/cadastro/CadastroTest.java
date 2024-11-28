@@ -174,7 +174,7 @@ public class CadastroTest {
 
 
     @Test
-    @DisplayName("Testa o preenchimento do e-mail com válores válidos")
+    @DisplayName("Testa o preenchimento do cadastro com válores válidos")
     public void testPreenchimentoFormularioCadastro() {
         cadastroPage.waitForNomeInput();
         cadastroPage.waitForIdadeInput();
@@ -185,8 +185,35 @@ public class CadastroTest {
         cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
         cadastroPage.clicarCadastrar();
 
-        cadastroPage.waitForPopupAndClickConfirmButton();
+        cadastroPage.waitForPopupAndClickOkButton();
+
+        String mensagemPopUp = cadastroPage.getPopupMessageSuccess();
+        Assertions.assertEquals("Sucesso!\n" +
+                "Pessoa cadastrada com sucesso!\n" +
+                "OK", mensagemPopUp);
     }
+
+
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com nome inválido")
+    public void testPreenchimentoFormularioCadastroNomeInvalido() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherCadastro("João-Silva123@@!", 25);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+        String mensagemPopUp = cadastroPage.getPopupMessageSuccess();
+        Assertions.assertEquals("Sucesso!\n" +
+                "Pessoa cadastrada com sucesso!\n" +
+                "OK", mensagemPopUp);
+    }
+
 
 
 
