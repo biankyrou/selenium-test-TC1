@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,47 +28,56 @@ public class CadastroTest {
 
     @AfterEach
     public void tearDown(){
-//        driver.quit();
+        driver.quit();
     }
 
+    public void waitForElementVisibility(By locator) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (TimeoutException e) {
+            System.err.println("Elemento não encontrado: " + locator);
+            throw e;
+        }
+    }
 
     // testes funcionais:
     @Test
     @DisplayName("Verifica se o campo \"Nome\" está visível")
     public void testNomeInputVisivel() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='nome']")));
+        waitForElementVisibility(By.xpath("//*[@id='nome']"));
         Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo Nome não está visível!");
     }
 
     @Test
     @DisplayName("Verifica se o campo \"Idade\" está visível")
     public void testIdadeInputVisivel() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='idade']")));
+        waitForElementVisibility(By.xpath("//*[@id='idade']"));
         Assertions.assertTrue(cadastroPage.isIdadeInputVisible(), "O campo Idade não está visível!");
     }
 
     @Test
     @DisplayName("Verifica se o Cadastrar Button está visível")
     public void testCadastrarButtonVisivel() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"cadastroForm\"]/button")));
+        waitForElementVisibility(By.xpath("//*[@id=\"cadastroForm\"]/button"));
         Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible(), "O botão Cadastrar não está visível!");
     }
 
     @Test
     @DisplayName("Verifica se o Visualizar Lista Button está visível")
     public void testVisualizarButtonVisivel() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/a")));
+        waitForElementVisibility(By.xpath("/html/body/div/a"));
         Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible(), "O botão Visualizar não está visível!");
     }
-
 
     @Test
     @DisplayName("Verifica se os campos de input e botões estão visíveis")
     public void testCadastroPageCarregada() {
+        waitForElementVisibility(By.xpath("//*[@id='nome']"));
+        waitForElementVisibility(By.xpath("//*[@id='idade']"));
+        waitForElementVisibility(By.xpath("//*[@id=\"cadastroForm\"]/button"));
+        waitForElementVisibility(By.xpath("/html/body/div/a"));
+
         Assertions.assertTrue(cadastroPage.isNomeInputVisible());
         Assertions.assertTrue(cadastroPage.isIdadeInputVisible());
         Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible());
@@ -130,13 +140,6 @@ public class CadastroTest {
         testarPreenchimentoNome(nomeLongo, nomeLongo);
     }
 
-//    @Test
-//    @DisplayName("Verifica se o campo 'Nome' não aceita valor nulo")
-//    public void testNomeNull() {
-//        cadastroPage.nomeInput.clear();
-//        Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo 'Nome' não gerou erro ao ser preenchido com valor nulo!");
-//    }
-
     //-------------------------------------------------------------------------------------
 
 //    testes de equivalência para campo de entrada 'Idade' :
@@ -177,6 +180,27 @@ public class CadastroTest {
     public void testIdaeNumeroGrande() {
         testarPreenchimentoIdade(1000, 1000);
     }
+
+
+    @Test
+    public void testPreenchimentoFormularioCadastro() {
+        cadastroPage.preencherCadastro("João Silva", 25);
+
+        cadastroPage.clicarCadastrar();
+    }
+
+
+
+
+//    testes de navegação -> 1- Teste Envio de Formulário
+//    Após preencher os campos, clique no botão "Cadastrar" e verifique se o cadastro foi
+//    realizado com sucesso (isso pode ser validado com uma nova página, mensagem de
+//                           confirmação ou uma lista atualizada de pessoas cadastradas).
+
+
+
+
+
 
 
 }
