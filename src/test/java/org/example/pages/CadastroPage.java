@@ -1,10 +1,15 @@
 package org.example.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CadastroPage {
     private WebDriver driver;
@@ -91,5 +96,34 @@ public class CadastroPage {
         String valor = idadeInput.getAttribute("value");
         return Integer.parseInt(valor);  // Converte a String para Integer
     }
+
+
+    private void waitForElement(WebElement element) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (TimeoutException e) {
+            System.err.println("Elemento não encontrado: " + element);
+            throw e;
+        }
+    }
+
+    public void waitForNomeInput() {
+        waitForElement(nomeInput);
+    }
+
+    public void waitForIdadeInput() {
+        waitForElement(idadeInput);
+    }
+
+    public void waitForCadastrarButton() {
+        waitForElement(cadastrarButton);
+    }
+
+    public void waitForVisualizarButton() {
+        waitForElement(visualizarButton);
+    }
+
+
 
 }

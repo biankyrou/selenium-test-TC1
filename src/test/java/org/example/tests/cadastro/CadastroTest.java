@@ -31,52 +31,43 @@ public class CadastroTest {
         driver.quit();
     }
 
-    public void waitForElementVisibility(By locator) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        } catch (TimeoutException e) {
-            System.err.println("Elemento não encontrado: " + locator);
-            throw e;
-        }
-    }
 
     // testes funcionais:
     @Test
-    @DisplayName("Verifica se o campo \"Nome\" está visível")
+    @DisplayName("Verifica se o campo 'Nome' está visível")
     public void testNomeInputVisivel() {
-        waitForElementVisibility(By.xpath("//*[@id='nome']"));
+        cadastroPage.waitForNomeInput();
         Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo Nome não está visível!");
     }
 
     @Test
-    @DisplayName("Verifica se o campo \"Idade\" está visível")
+    @DisplayName("Verifica se o campo 'Idade' está visível")
     public void testIdadeInputVisivel() {
-        waitForElementVisibility(By.xpath("//*[@id='idade']"));
+        cadastroPage.waitForIdadeInput();
         Assertions.assertTrue(cadastroPage.isIdadeInputVisible(), "O campo Idade não está visível!");
     }
 
     @Test
     @DisplayName("Verifica se o Cadastrar Button está visível")
     public void testCadastrarButtonVisivel() {
-        waitForElementVisibility(By.xpath("//*[@id=\"cadastroForm\"]/button"));
+        cadastroPage.waitForCadastrarButton();
         Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible(), "O botão Cadastrar não está visível!");
     }
 
     @Test
     @DisplayName("Verifica se o Visualizar Lista Button está visível")
     public void testVisualizarButtonVisivel() {
-        waitForElementVisibility(By.xpath("/html/body/div/a"));
+        cadastroPage.waitForVisualizarButton();
         Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible(), "O botão Visualizar não está visível!");
     }
 
     @Test
     @DisplayName("Verifica se os campos de input e botões estão visíveis")
     public void testCadastroPageCarregada() {
-        waitForElementVisibility(By.xpath("//*[@id='nome']"));
-        waitForElementVisibility(By.xpath("//*[@id='idade']"));
-        waitForElementVisibility(By.xpath("//*[@id=\"cadastroForm\"]/button"));
-        waitForElementVisibility(By.xpath("/html/body/div/a"));
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForVisualizarButton();
 
         Assertions.assertTrue(cadastroPage.isNomeInputVisible());
         Assertions.assertTrue(cadastroPage.isIdadeInputVisible());
@@ -87,6 +78,7 @@ public class CadastroTest {
 
     //testes de equivalência para campo de entrada 'Nome' :
     private void testarPreenchimentoNome(String entrada, String esperado) {
+        cadastroPage.waitForNomeInput();
         cadastroPage.preencherNome(entrada);
         String valorAtual = cadastroPage.getNomeValue();
         Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
@@ -144,6 +136,7 @@ public class CadastroTest {
 
 //    testes de equivalência para campo de entrada 'Idade' :
     private void testarPreenchimentoIdade(Integer entrada, Integer esperado) {
+        cadastroPage.waitForIdadeInput();
         cadastroPage.preencherIdade(entrada);
         Integer valorAtual = cadastroPage.getIdadeValue();
         Assertions.assertEquals(esperado, valorAtual, "O campo 'Idade' não contém o valor esperado!");
@@ -185,7 +178,6 @@ public class CadastroTest {
     @Test
     public void testPreenchimentoFormularioCadastro() {
         cadastroPage.preencherCadastro("João Silva", 25);
-
         cadastroPage.clicarCadastrar();
     }
 
