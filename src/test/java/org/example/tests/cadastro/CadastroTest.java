@@ -72,4 +72,20 @@ public class CadastroTest {
         Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible());
         Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible());
     }
+
+
+    //testes de equivalência VÁLIDOS para campo de entrada 'Nome' :
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
+    public void testNomeValidoComCaracteresEspeciais() {
+        cadastroPage.preencherNome("Jo@o-Silva!");
+        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+    }
+
+
+
+    //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
+
+
+
 }
