@@ -235,6 +235,26 @@ public class CadastroTest {
                 "OK", mensagemPopUp);
     }
 
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com dados inválidos")
+    public void testPreenchimentoFormularioCadastroDadosInvalidos() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherCadastro("Ambessa060606! 329-1", 2191855);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+        String mensagemPopUp = cadastroPage.getPopupMessageSuccess();
+        Assertions.assertEquals("Sucesso!\n" +
+                "Pessoa cadastrada com sucesso!\n" +
+                "OK", mensagemPopUp);
+    }
+
 
 
 
