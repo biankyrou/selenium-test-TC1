@@ -82,6 +82,14 @@ public class CadastroTest {
         Assertions.assertTrue(cadastroPage.isNomeInputVisible());
     }
 
+    @Test
+    @DisplayName("Verifica se o campo 'Nome' aceita uma string com números")
+    public void testNomeValidoComNumeros() {
+        cadastroPage.preencherNome("João123");
+        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+    }
+
+
 
 
     //testes de equivalência INVÁLIDOS para campo de entrada 'Nome' :
