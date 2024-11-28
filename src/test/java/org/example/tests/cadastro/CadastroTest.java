@@ -215,6 +215,27 @@ public class CadastroTest {
     }
 
 
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com idade inválida")
+    public void testPreenchimentoFormularioCadastroIdadeInvalida() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherCadastro("Jinx Powder", -120);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+        String mensagemPopUp = cadastroPage.getPopupMessageSuccess();
+        Assertions.assertEquals("Sucesso!\n" +
+                "Pessoa cadastrada com sucesso!\n" +
+                "OK", mensagemPopUp);
+    }
+
+
 
 
 
