@@ -4,5 +4,8 @@ import org.junit.platform.suite.api.Suite;
 
 
 @Suite
+@SelectClasses({
+        CadastroTest.class
+})
 public class CadastroSuiteTest {
 }
