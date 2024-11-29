@@ -1,5 +1,6 @@
 package org.example.tests.lista;
 
+import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
 import org.example.pages.ListaPage;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 public class ListaTest {
     private WebDriver driver;
     private ListaPage listaPage;
+    private final Faker faker = new Faker();
 
     @BeforeEach
     public void setUp(){

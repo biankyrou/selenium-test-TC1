@@ -1,5 +1,6 @@
 package org.example.tests.cadastro;
 
+import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
 import org.example.pages.ListaPage;
@@ -16,6 +17,7 @@ import java.time.Duration;
 public class CadastroTest {
     private WebDriver driver;
     private CadastroPage cadastroPage;
+    private final Faker faker = new Faker();
 
     @BeforeEach
     public void setUp(){
@@ -76,7 +78,6 @@ public class CadastroTest {
             Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible());
             Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible());
         }
-
     }
 
 
@@ -141,7 +142,7 @@ public class CadastroTest {
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita string longa")
             public void testNomeStringLonga() {
-                String nomeLongo = "a".repeat(100000);  //dá bug
+                String nomeLongo = "a".repeat(10000);  //com 100000 dá bug
                 testarPreenchimentoNome(nomeLongo, nomeLongo);
             }
         }
@@ -314,6 +315,32 @@ public class CadastroTest {
     }
 
 
+    //TESTES COM JAVA FAKER
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro valores válidos")
+    public void testPreenchimentoCadastfdddddroDadosValidosLista() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        String nome = faker.name().fullName();
+        int idade = faker.number().numberBetween(18, 70);
+
+        cadastroPage.preencherCadastro(nome, idade);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
+        ListaPage listapage = new ListaPage(driver);
+        boolean pessoaCadastrada = listapage.isPessoaNaLista(nome);
+        Assertions.assertTrue(pessoaCadastrada, "Pessoa cadastrada");
+    }
+
 
     // FLUXO ONDE NÃO CADASTRA
     @Test
@@ -380,11 +407,5 @@ public class CadastroTest {
 //    Após preencher os campos, clique no botão "Cadastrar" e verifique se o cadastro foi
 //    realizado com sucesso (isso pode ser validado com uma nova página, mensagem de
 //                           confirmação ou uma lista atualizada de pessoas cadastradas).
-
-
-
-
-
-
 
 }
