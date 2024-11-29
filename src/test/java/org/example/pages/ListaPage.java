@@ -66,8 +66,6 @@ public class ListaPage {
     }
 
 
-
-
     //*[@id="listaPessoas"]/li[1]/div/button[1]
     //*[@id="listaPessoas"]/li[2]/div/button[1]
 
@@ -75,8 +73,5 @@ public class ListaPage {
 
     //*[@id="listaPessoas"]/li[1]/div/button[2]
     //*[@id="listaPessoas"]/li[2]/div/button[2]
-
-
-
 
 }

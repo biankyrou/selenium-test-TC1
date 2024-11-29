@@ -31,104 +31,120 @@ public class CadastroTest {
     }
 
 
-    // testes funcionais:
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' está visível")
-    public void testNomeInputVisivel() {
-        cadastroPage.waitForNomeInput();
-        Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo Nome não está visível!");
-    }
+    @Nested
+    @DisplayName("Testes Funcionais que verificam visibilidade de elementos")
+    class TestesFuncionaisVisibilidade{
+        // testes funcionais:
+        @Test
+        @DisplayName("Verifica se o campo 'Nome' está visível")
+        public void testNomeInputVisivel() {
+            cadastroPage.waitForNomeInput();
+            Assertions.assertTrue(cadastroPage.isNomeInputVisible(), "O campo Nome não está visível!");
+        }
 
-    @Test
-    @DisplayName("Verifica se o campo 'Idade' está visível")
-    public void testIdadeInputVisivel() {
-        cadastroPage.waitForIdadeInput();
-        Assertions.assertTrue(cadastroPage.isIdadeInputVisible(), "O campo Idade não está visível!");
-    }
+        @Test
+        @DisplayName("Verifica se o campo 'Idade' está visível")
+        public void testIdadeInputVisivel() {
+            cadastroPage.waitForIdadeInput();
+            Assertions.assertTrue(cadastroPage.isIdadeInputVisible(), "O campo Idade não está visível!");
+        }
 
-    @Test
-    @DisplayName("Verifica se o Cadastrar Button está visível")
-    public void testCadastrarButtonVisivel() {
-        cadastroPage.waitForCadastrarButton();
-        Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible(), "O botão Cadastrar não está visível!");
-    }
+        @Test
+        @DisplayName("Verifica se o Cadastrar Button está visível")
+        public void testCadastrarButtonVisivel() {
+            cadastroPage.waitForCadastrarButton();
+            Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible(), "O botão Cadastrar não está visível!");
+        }
 
-    @Test
-    @DisplayName("Verifica se o Visualizar Lista Button está visível")
-    public void testVisualizarButtonVisivel() {
-        cadastroPage.waitForVisualizarButton();
-        Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible(), "O botão Visualizar não está visível!");
-    }
+        @Test
+        @DisplayName("Verifica se o Visualizar Lista Button está visível")
+        public void testVisualizarButtonVisivel() {
+            cadastroPage.waitForVisualizarButton();
+            Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible(), "O botão Visualizar não está visível!");
+        }
 
-    @Test
-    @DisplayName("Verifica se os campos de input e botões estão visíveis")
-    public void testCadastroPageCarregada() {
-        cadastroPage.waitForNomeInput();
-        cadastroPage.waitForIdadeInput();
-        cadastroPage.waitForCadastrarButton();
-        cadastroPage.waitForVisualizarButton();
+        @Test
+        @DisplayName("Verifica se os campos de input e botões estão visíveis")
+        public void testCadastroPageCarregada() {
+            cadastroPage.waitForNomeInput();
+            cadastroPage.waitForIdadeInput();
+            cadastroPage.waitForCadastrarButton();
+            cadastroPage.waitForVisualizarButton();
 
-        Assertions.assertTrue(cadastroPage.isNomeInputVisible());
-        Assertions.assertTrue(cadastroPage.isIdadeInputVisible());
-        Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible());
-        Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible());
-    }
+            Assertions.assertTrue(cadastroPage.isNomeInputVisible());
+            Assertions.assertTrue(cadastroPage.isIdadeInputVisible());
+            Assertions.assertTrue(cadastroPage.isCadastrarButtonVisible());
+            Assertions.assertTrue(cadastroPage.isVisualizarButtonVisible());
+        }
 
-
-    //testes de equivalência para campo de entrada 'Nome' :
-    private void testarPreenchimentoNome(String entrada, String esperado) {
-        cadastroPage.waitForNomeInput();
-        cadastroPage.preencherNome(entrada);
-        String valorAtual = cadastroPage.getNomeValue();
-        Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
-    }
-
-    //VÁLIDOS
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita uma string")
-    public void testeNomePadrao(){
-        testarPreenchimentoNome("Tiago", "Tiago");
     }
 
 
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
-    public void testNomeComEspacos() {
-        testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
-    }
+    @Nested
+    @DisplayName("Testes para campo de entrada 'Nome'")
+    class TestCampoDeEntradaNome{
+        //testes de equivalência para campo de entrada 'Nome' :
+        private void testarPreenchimentoNome(String entrada, String esperado) {
+            cadastroPage.waitForNomeInput();
+            cadastroPage.preencherNome(entrada);
+            String valorAtual = cadastroPage.getNomeValue();
+            Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
+        }
 
 
-    //INVÁLIDOS
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
-    public void testNomeComCaracteresEspeciais() {
-        testarPreenchimentoNome("Jo@o-Silva!", "Jo@o-Silva!");
-    }
+        @Nested
+        @DisplayName("Dados VÁLIDOS")
+        class TestDadosValidosNome{
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita uma string")
+            public void testeNomePadrao(){
+                testarPreenchimentoNome("Tiago", "Tiago");
+            }
 
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita uma string com números")
-    public void testNomeComNumeros() {
-        testarPreenchimentoNome("João123", "João123");
-    }
 
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita uma string vazia")
-    public void testNomeStringVazia() {
-        testarPreenchimentoNome("", "");
-    }
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
+            public void testNomeComEspacos() {
+                testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
+            }
 
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita quebra de linha")
-    public void testNomeComQuebraDeLinha() {
-        String nomeComQuebraDeLinha = "Tiago\\nLemos \\ud83c\\udf89 \\ud83e\\udd84";
-        testarPreenchimentoNome(nomeComQuebraDeLinha, nomeComQuebraDeLinha);
-    }
+        }
 
-    @Test
-    @DisplayName("Verifica se o campo 'Nome' aceita string longa")
-    public void testNomeStringLonga() {
-        String nomeLongo = "a".repeat(100000);  //dá bug
-        testarPreenchimentoNome(nomeLongo, nomeLongo);
+        @Nested
+        @DisplayName("Dados INVÁLIDOS")
+        class TestDadosInvalidosNome{
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
+            public void testNomeComCaracteresEspeciais() {
+                testarPreenchimentoNome("Jo@o-Silva!", "Jo@o-Silva!");
+            }
+
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita uma string com números")
+            public void testNomeComNumeros() {
+                testarPreenchimentoNome("João123", "João123");
+            }
+
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita uma string vazia")
+            public void testNomeStringVazia() {
+                testarPreenchimentoNome("", "");
+            }
+
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita quebra de linha")
+            public void testNomeComQuebraDeLinha() {
+                String nomeComQuebraDeLinha = "Tiago\\nLemos \\ud83c\\udf89 \\ud83e\\udd84";
+                testarPreenchimentoNome(nomeComQuebraDeLinha, nomeComQuebraDeLinha);
+            }
+
+            @Test
+            @DisplayName("Verifica se o campo 'Nome' aceita string longa")
+            public void testNomeStringLonga() {
+                String nomeLongo = "a".repeat(100000);  //dá bug
+                testarPreenchimentoNome(nomeLongo, nomeLongo);
+            }
+        }
     }
 
     //-------------------------------------------------------------------------------------
@@ -176,6 +192,7 @@ public class CadastroTest {
     // -----------------PREENCHIMENTO CADASTRO-----------------------
 
 
+    // CADASTRO COM SUCESSO VENDO POPUP
     @Test
     @DisplayName("Testa o preenchimento do cadastro com válores válidos")
     public void testPreenchimentoFormularioCadastro() {
@@ -260,6 +277,36 @@ public class CadastroTest {
 
 
 
+    // VERIFICANDO SE O CADASTRO FOI FEITO COM SUCESSO VENDO A LISTA DE PESSOAS
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
+    public void testPreenchimentoCadastroDadosValidosLista() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherIdade(30);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
+        ListaPage listapage = new ListaPage(driver);
+        boolean pessoaCadastrada = listapage.isPessoaNaLista("");
+        Assertions.assertFalse(pessoaCadastrada, "Pessoa sem nome não deveria ser cadastrada");
+    }
+
+
+
+
+
+
+
+
+
+
     // FLUXO ONDE NÃO CADASTRA
     @Test
     @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
@@ -277,9 +324,7 @@ public class CadastroTest {
         cadastroPage.clicarVisualizarPessoas();
 
         ListaPage listapage = new ListaPage(driver);
-
         boolean pessoaCadastrada = listapage.isPessoaNaLista("");
-
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem nome não deveria ser cadastrada");
     }
 
@@ -299,7 +344,6 @@ public class CadastroTest {
         cadastroPage.clicarVisualizarPessoas();
 
         ListaPage listapage = new ListaPage(driver);
-
         boolean pessoaCadastrada = listapage.isPessoaNaLista("Fernanda Torres");
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem idade não deveria ser cadastrada");
     }
@@ -318,16 +362,9 @@ public class CadastroTest {
         cadastroPage.clicarVisualizarPessoas();
 
         ListaPage listapage = new ListaPage(driver);
-
         boolean pessoaCadastrada = listapage.isPessoaNaLista("");
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem dados não deveria ser cadastrada");
     }
-
-
-
-
-
-
 
 
 
