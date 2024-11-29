@@ -16,7 +16,6 @@ import java.time.Duration;
 public class CadastroTest {
     private WebDriver driver;
     private CadastroPage cadastroPage;
-    private ListaPage listaPage;
 
     @BeforeEach
     public void setUp(){
@@ -277,9 +276,9 @@ public class CadastroTest {
         cadastroPage.waitForVisualizarButton();
         cadastroPage.clicarVisualizarPessoas();
 
-        ListaPage listapageee = new ListaPage(driver);
+        ListaPage listapage = new ListaPage(driver);
 
-        boolean pessoaCadastrada = listapageee.isPessoaNaLista("");
+        boolean pessoaCadastrada = listapage.isPessoaNaLista("");
 
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem nome não deveria ser cadastrada");
     }
@@ -299,10 +298,29 @@ public class CadastroTest {
         cadastroPage.waitForVisualizarButton();
         cadastroPage.clicarVisualizarPessoas();
 
-        ListaPage listapageee = new ListaPage(driver);
+        ListaPage listapage = new ListaPage(driver);
 
-        boolean pessoaCadastrada = listapageee.isPessoaNaLista("Fernanda Torres");
+        boolean pessoaCadastrada = listapage.isPessoaNaLista("Fernanda Torres");
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem idade não deveria ser cadastrada");
+    }
+
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com idade e nomes nulos e verifica se cadastrou")
+    public void testPreenchimentoFormularioCadastroDadosNulos() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
+        ListaPage listapage = new ListaPage(driver);
+
+        boolean pessoaCadastrada = listapage.isPessoaNaLista("");
+        Assertions.assertFalse(pessoaCadastrada, "Pessoa sem dados não deveria ser cadastrada");
     }
 
 
