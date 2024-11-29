@@ -284,6 +284,27 @@ public class CadastroTest {
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem nome não deveria ser cadastrada");
     }
 
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com idade null e verifica se cadastrou")
+    public void testPreenchimentoFormularioCadastroIdadeNull() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherNome("Fernanda Torres");
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
+        ListaPage listapageee = new ListaPage(driver);
+
+        boolean pessoaCadastrada = listapageee.isPessoaNaLista("Fernanda Torres");
+        Assertions.assertFalse(pessoaCadastrada, "Pessoa sem idade não deveria ser cadastrada");
+    }
+
 
 
 
