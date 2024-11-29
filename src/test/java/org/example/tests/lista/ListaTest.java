@@ -18,7 +18,7 @@ public class ListaTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         listaPage = PageFactory.initElements(driver, ListaPage.class);
-        driver.get("https://tc-1-final-parte1.vercel.app/");
+        driver.get("https://tc-1-final-parte1.vercel.app/tabelaCadastro.html");
     }
 
     @AfterEach

@@ -2,6 +2,7 @@ package org.example.tests.cadastro;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
+import org.example.pages.ListaPage;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,6 +16,7 @@ import java.time.Duration;
 public class CadastroTest {
     private WebDriver driver;
     private CadastroPage cadastroPage;
+    private ListaPage listaPage;
 
     @BeforeEach
     public void setUp(){
@@ -258,6 +260,8 @@ public class CadastroTest {
     }
 
 
+
+    // FLUXO ONDE NÃO CADASTRA
     @Test
     @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
     public void testPreenchimentoFormularioCadastroNomeNull() {
@@ -273,7 +277,14 @@ public class CadastroTest {
         cadastroPage.waitForVisualizarButton();
         cadastroPage.clicarVisualizarPessoas();
 
+        ListaPage listapageee = new ListaPage(driver);
+
+        boolean pessoaCadastrada = listapageee.isPessoaNaLista("");
+
+        Assertions.assertFalse(pessoaCadastrada, "Pessoa sem nome não deveria ser cadastrada");
     }
+
+
 
 
 
