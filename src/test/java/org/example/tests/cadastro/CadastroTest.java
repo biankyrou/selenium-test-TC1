@@ -293,31 +293,25 @@ public class CadastroTest {
 
     // VERIFICANDO SE O CADASTRO FOI FEITO COM SUCESSO VENDO A LISTA DE PESSOAS
     @Test
-    @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
+    @DisplayName("Testa o preenchimento do cadastro valores válidos")
     public void testPreenchimentoCadastroDadosValidosLista() {
         cadastroPage.waitForNomeInput();
         cadastroPage.waitForIdadeInput();
 
-        cadastroPage.preencherIdade(30);
-
+        cadastroPage.preencherCadastro("Violet", 25);
         cadastroPage.waitForCadastrarButton();
         cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
         cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
 
         cadastroPage.waitForVisualizarButton();
         cadastroPage.clicarVisualizarPessoas();
 
         ListaPage listapage = new ListaPage(driver);
-        boolean pessoaCadastrada = listapage.isPessoaNaLista("");
-        Assertions.assertFalse(pessoaCadastrada, "Pessoa sem nome não deveria ser cadastrada");
+        boolean pessoaCadastrada = listapage.isPessoaNaLista("Violet");
+        Assertions.assertTrue(pessoaCadastrada, "Pessoa cadastrada");
     }
-
-
-
-
-
-
-
 
 
 
