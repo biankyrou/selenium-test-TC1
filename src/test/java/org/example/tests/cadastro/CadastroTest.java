@@ -433,6 +433,15 @@ public class CadastroTest {
         Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
     }
 
+    @Test
+    @DisplayName("Verifica a navegação para a página de cadastro")
+    public void testNavegarParaPaginaCadastro() {
+        driver.get("https://tc-1-final-parte1.vercel.app/");
+        cadastroPage.waitForNomeInput();
+        Assertions.assertTrue(driver.getCurrentUrl().contains("vercel.app"), "A URL não corresponde à página de cadastro!");
+    }
+
+
 
 
 
