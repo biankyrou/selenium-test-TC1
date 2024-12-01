@@ -376,6 +376,7 @@ public class CadastroTest {
         boolean pessoaCadastrada = listapage.isPessoaNaLista(nome);
         Assertions.assertTrue(pessoaCadastrada, "Pessoa cadastrada");
     }
+
     @Test
     @DisplayName("Cadastro com dados excessivamente longos")
     public void testCadastroComDadosLongos() {
@@ -394,7 +395,24 @@ public class CadastroTest {
 
     }
 
+    @Test
+    @DisplayName("Cadastro com nome contendo caracteres especiais")
+    public void testCadastroComNomeInvalido() {
+        Faker faker = new Faker();
+        String nomeInvalido = faker.regexify("[@#$%^&*()_+=]+");
 
+        String enderecoAleatorio = "Rua Qualquer, 789";
+        int idadeAleatoria = 28;
+
+        cadastroPage.waitForNomeInput();
+        cadastroPage.preencherCadastro(nomeInvalido, idadeAleatoria);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+    }
 
 
     // FLUXO ONDE NÃO CADASTRA
