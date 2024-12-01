@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,6 +53,18 @@ public class ListaSuiteTest {
         // Verificar se a lista está vazia ao carregar a página
         WebElement lista = driver.findElement(By.id("listaPessoas"));
         assertTrue(lista.getText().isEmpty(), "A lista de pessoas deve estar vazia.");
+    }
+
+    @Test
+    public void testExibicaoDePessoas() {
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'João', idade: 25 }, { nome: 'Maria', idade: 30 }]))");
+        driver.navigate().refresh();
+
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().contains("João"));
+        assertTrue(lista.getText().contains("Maria"));
     }
 
 
