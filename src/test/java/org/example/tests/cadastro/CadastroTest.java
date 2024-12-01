@@ -145,6 +145,17 @@ public class CadastroTest {
                 String nomeLongo = "a".repeat(10000);  //com 100000 dá bug
                 testarPreenchimentoNome(nomeLongo, nomeLongo);
             }
+
+            @Test
+            @DisplayName("Deve permitir preencher o campo 'Nome' até o limite de caracteres")
+            void testarLimiteDeCaracteresNome() {
+                String entrada = "NomeMuitoLongoDeExemploParaTeste";
+                String esperado = "NomeMuitoLongoDeExemploParaTeste";
+                cadastroPage.waitForNomeInput();
+                cadastroPage.preencherNome(entrada);
+                String valorAtual = cadastroPage.getNomeValue();
+                Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não deve exceder o limite de caracteres!");
+            }
         }
     }
 
