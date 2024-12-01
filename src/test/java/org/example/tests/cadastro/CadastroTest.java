@@ -451,6 +451,16 @@ public class CadastroTest {
         Assertions.assertTrue(duration < 2000, "A resposta do botão 'Cadastrar' demorou mais que 2 segundos!");
     }
 
+    @Test
+    @DisplayName("Verifica se a página inicial carrega rapidamente")
+    public void testCarregamentoPaginaInicial() {
+        long startTime = System.currentTimeMillis();
+        driver.get("https://tc-1-final-parte1.vercel.app/");
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        Assertions.assertTrue(duration < 3000, "A página inicial demorou mais que 3 segundos para carregar!");
+    }
+
 
 
 
