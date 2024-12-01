@@ -178,6 +178,16 @@ public class ListaSuiteTest {
         assertTrue(lista.getText().contains("Marcela"), "A lista deve conter 'Marcela' ao voltar para a página.");
     }
 
+    @Test
+    @DisplayName("Adicionar pessoa com caracteres especiais no nome")
+    public void testAdicionarNomeCaracteresEspeciais() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'José@#$%', idade: 35 }]))");
+        driver.navigate().refresh();
+
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().contains("José@#$%"), "A lista deve exibir 'José@#$%' corretamente.");
+    }
 
 
 
