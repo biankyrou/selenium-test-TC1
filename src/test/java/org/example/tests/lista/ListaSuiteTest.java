@@ -162,6 +162,22 @@ public class ListaSuiteTest {
         assertTrue(lista.getText().contains("Eduarda"), "A lista deve exibir 'Eduarda' após recarregar.");
     }
 
+    @Test
+    @DisplayName("Persistência de dados ao voltar de outra página")
+    public void testPersistenciaAoVoltar() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Marcela', idade: 27 }]))");
+        driver.navigate().refresh();
+
+        WebElement botaoVoltar = driver.findElement(By.cssSelector(".btn"));
+        botaoVoltar.click();
+
+        driver.navigate().back();
+
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().contains("Marcela"), "A lista deve conter 'Marcela' ao voltar para a página.");
+    }
+
 
 
 
