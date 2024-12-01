@@ -327,6 +327,29 @@ public class CadastroTest {
         Assertions.assertTrue(pessoaCadastrada, "Pessoa cadastrada");
     }
 
+    @Test
+    @DisplayName("Testa navegação para a lista após cadastro bem-sucedido")
+    public void testNavegacaoAposCadastro() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherCadastro("Navegador", 30);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
+        ListaPage listaPage = new ListaPage(driver);
+        boolean pessoaCadastrada = listaPage.isPessoaNaLista("Navegador");
+        Assertions.assertTrue(pessoaCadastrada, "A pessoa não foi encontrada na lista após cadastro.");
+    }
+
+
 
     //TESTES COM JAVA FAKER
     @Test
