@@ -494,6 +494,22 @@ public class CadastroTest {
         }
     }
 
+    @Test
+    @DisplayName("Testa o cadastro com idade mínima (0 anos)")
+    public void testCadastroIdadeMinima() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherCadastro("Bebê Teste", 0);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+        Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
+    }
+
 
 
 
