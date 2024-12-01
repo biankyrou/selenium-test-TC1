@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -50,27 +51,30 @@ public class ListaSuiteTest {
     }
 
     @Test
+    @DisplayName("Verificar título da página")
     public void testTitle() {
-
         String title = driver.getTitle();
         assertEquals("Pessoas Cadastradas", title);
     }
 
 
     @Test
+    @DisplayName("Verificar se a lista de pessoas está vazia")
     public void testListaVazia() {
-        // Verificar se a lista está vazia ao carregar a página
+
         WebElement lista = driver.findElement(By.id("listaPessoas"));
         assertTrue(lista.getText().isEmpty(), "A lista de pessoas deve estar vazia.");
     }
 
     @Test
+    @DisplayName("Verificar se o botão 'Voltar para Cadastro' está visível")
     public void testBotaoVoltarParaCadastroVisivel() {
         WebElement voltarButton = driver.findElement(By.linkText("Voltar para Cadastro"));
         assertTrue(voltarButton.isDisplayed());
     }
 
     @Test
+    @DisplayName("Exibir pessoas cadastradas na lista")
     public void testExibicaoDePessoas() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -83,6 +87,7 @@ public class ListaSuiteTest {
     }
 
     @Test
+    @DisplayName("Navegar de volta para a página de cadastro")
     public void testNavegacaoCadastro() {
         WebElement botaoVoltar = driver.findElement(By.cssSelector(".btn"));
         botaoVoltar.click();
@@ -90,6 +95,7 @@ public class ListaSuiteTest {
     }
 
     @Test
+    @DisplayName("Testar link 'Voltar para Cadastro'")
     public void testLinkVoltarParaCadastro() {
         WebElement link = driver.findElement(By.linkText("Voltar para Cadastro"));
         link.click();
@@ -99,6 +105,7 @@ public class ListaSuiteTest {
     }
 
     @Test
+    @DisplayName("Verificar estado da página ao voltar para o cadastro")
     public void testBotaoVoltarParaCadastroEstadoPagina() {
         WebElement voltarButton = driver.findElement(By.linkText("Voltar para Cadastro"));
         voltarButton.click();
@@ -109,11 +116,16 @@ public class ListaSuiteTest {
     }
 
     @Test
+    @DisplayName("Não exibir botão 'Remover' em lista vazia")
     public void testNaoExibirRemoverBotaoEmListaVazia() {
         WebElement listaPessoas = driver.findElement(By.id("listaPessoas"));
         List<WebElement> removerButtons = driver.findElements(By.xpath("//button[text()='Remover']"));
         assertTrue(removerButtons.isEmpty(), "Não deveria existir botão de remover na lista vazia.");
     }
+
+
+
+
 
 
 
