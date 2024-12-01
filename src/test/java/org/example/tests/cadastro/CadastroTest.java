@@ -381,8 +381,7 @@ public class CadastroTest {
     @DisplayName("Cadastro com dados excessivamente longos")
     public void testCadastroComDadosLongos() {
         Faker faker = new Faker();
-        String nomeLongo = faker.lorem().characters(300); // Nome muito longo
-        String enderecoLongo = faker.lorem().characters(500); // Endereço muito longo
+        String nomeLongo = faker.lorem().characters(300);
         int idadeAleatoria = 35;
 
         cadastroPage.waitForNomeInput();
@@ -401,7 +400,6 @@ public class CadastroTest {
         Faker faker = new Faker();
         String nomeInvalido = faker.regexify("[@#$%^&*()_+=]+");
 
-        String enderecoAleatorio = "Rua Qualquer, 789";
         int idadeAleatoria = 28;
 
         cadastroPage.waitForNomeInput();
@@ -413,6 +411,8 @@ public class CadastroTest {
         cadastroPage.waitForPopupAndClickOkButton();
 
     }
+
+
 
 
     // FLUXO ONDE NÃO CADASTRA
