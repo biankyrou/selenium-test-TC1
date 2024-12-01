@@ -89,6 +89,15 @@ public class ListaSuiteTest {
         assertTrue(driver.getCurrentUrl().contains("index.html"));
     }
 
+    @Test
+    public void testBotaoVoltarParaCadastroEstadoPagina() {
+        WebElement voltarButton = driver.findElement(By.linkText("Voltar para Cadastro"));
+        voltarButton.click();
+        WebElement nomeInput = driver.findElement(By.id("nome"));
+        WebElement idadeInput = driver.findElement(By.id("idade"));
+        assertTrue(nomeInput.getText().isEmpty());
+        assertTrue(idadeInput.getText().isEmpty());
+    }
 
 
 
