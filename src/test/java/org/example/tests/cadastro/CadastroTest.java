@@ -412,6 +412,28 @@ public class CadastroTest {
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem dados não deveria ser cadastrada");
     }
 
+    @Test
+    @DisplayName("Testa o preenchimento do cadastro com nome vazio e idade válida e verifica se cadastrou")
+    public void testCadastroComNomeVazioEIdadeValida() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherNome("");
+        cadastroPage.preencherIdade(25);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForVisualizarButton();
+        cadastroPage.clicarVisualizarPessoas();
+
+        ListaPage listapage = new ListaPage(driver);
+        boolean pessoaCadastrada = listapage.isPessoaNaLista("");
+        Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
+    }
+
+
 
 
 //    testes de navegação -> 1- Teste Envio de Formulário
