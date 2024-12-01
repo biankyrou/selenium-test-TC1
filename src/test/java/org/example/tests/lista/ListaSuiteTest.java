@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Duration;
 
@@ -47,6 +48,14 @@ public class ListaSuiteTest {
             driver.quit();
         }
     }
+
+    @Test
+    public void testTitle() {
+
+        String title = driver.getTitle();
+        assertEquals("Pessoas Cadastradas", title);
+    }
+
 
     @Test
     public void testListaVazia() {
