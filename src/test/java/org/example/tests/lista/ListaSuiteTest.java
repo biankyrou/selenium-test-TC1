@@ -134,6 +134,24 @@ public class ListaSuiteTest {
         assertTrue(lista.getText().contains("Carlos"), "A lista deveria conter 'Carlos'");
     }
 
+    @Test
+    @DisplayName("Adicionar múltiplas pessoas e verificar ordem")
+    public void testAdicionarMultiplasPessoas() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify(["
+                + "{ nome: 'Ana', idade: 20 }, { nome: 'Bruno', idade: 25 }, { nome: 'Clara', idade: 30 }"
+                + "]))");
+        driver.navigate().refresh();
+
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        String textoLista = lista.getText();
+        assertTrue(textoLista.contains("Ana") && textoLista.contains("Bruno") && textoLista.contains("Clara"),
+                "Os nomes 'Ana', 'Bruno' e 'Clara' devem aparecer na lista.");
+        assertTrue(textoLista.indexOf("Ana") < textoLista.indexOf("Bruno") && textoLista.indexOf("Bruno") < textoLista.indexOf("Clara"),
+                "A ordem dos nomes deve ser 'Ana', 'Bruno' e 'Clara'.");
+    }
+
+
 
 
 }
