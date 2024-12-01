@@ -434,6 +434,15 @@ public class CadastroTest {
     }
 
     @Test
+    @DisplayName("Verifica se idade aceita o menor valor negativo permitido")
+    public void testIdadeMinimoNegativo() {
+        cadastroPage.waitForIdadeInput();
+        cadastroPage.preencherIdade(-1);
+        Assertions.assertEquals(-1, cadastroPage.getIdadeValue(), "O campo Idade não contém o menor valor negativo permitido!");
+    }
+
+
+    @Test
     @DisplayName("Verifica a navegação para a página de cadastro")
     public void testNavegarParaPaginaCadastro() {
         driver.get("https://tc-1-final-parte1.vercel.app/");
