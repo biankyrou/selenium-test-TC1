@@ -441,6 +441,16 @@ public class CadastroTest {
         Assertions.assertTrue(driver.getCurrentUrl().contains("vercel.app"), "A URL não corresponde à página de cadastro!");
     }
 
+    @Test
+    @DisplayName("Verifica o tempo de resposta do botão 'Cadastrar'")
+    public void testTempoRespostaCadastrar() {
+        long startTime = System.currentTimeMillis();
+        cadastroPage.clicarCadastrar();
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        Assertions.assertTrue(duration < 2000, "A resposta do botão 'Cadastrar' demorou mais que 2 segundos!");
+    }
+
 
 
 
