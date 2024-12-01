@@ -87,6 +87,18 @@ public class ListaSuiteTest {
     }
 
     @Test
+    @DisplayName("Adicionar pessoa com nome muito longo")
+    public void testAdicionarPessoaNomeMuitoLongo() {
+        String nomeLongo = "NomeExcessivamenteLongoParaTestarLimitesDeCaracteres";
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: '" + nomeLongo + "', idade: 40 }]))");
+        driver.navigate().refresh();
+
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().contains(nomeLongo), "A lista deve exibir o nome longo corretamente.");
+    }
+
+    @Test
     @DisplayName("Navegar de volta para a página de cadastro")
     public void testNavegacaoCadastro() {
         WebElement botaoVoltar = driver.findElement(By.cssSelector(".btn"));
@@ -188,8 +200,6 @@ public class ListaSuiteTest {
         WebElement lista = driver.findElement(By.id("listaPessoas"));
         assertTrue(lista.getText().contains("José@#$%"), "A lista deve exibir 'José@#$%' corretamente.");
     }
-
-
 
 
 
