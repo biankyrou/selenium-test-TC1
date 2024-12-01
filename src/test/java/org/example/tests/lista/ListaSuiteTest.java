@@ -67,6 +67,12 @@ public class ListaSuiteTest {
         assertTrue(lista.getText().contains("Maria"));
     }
 
+    @Test
+    public void testNavegacaoCadastro() {
+        WebElement botaoVoltar = driver.findElement(By.cssSelector(".btn"));
+        botaoVoltar.click();
+        assertTrue(driver.getCurrentUrl().endsWith("index.html"));
+    }
 
 
 
