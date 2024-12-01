@@ -74,6 +74,15 @@ public class ListaSuiteTest {
         assertTrue(driver.getCurrentUrl().endsWith("index.html"));
     }
 
+    @Test
+    public void testLinkVoltarParaCadastro() {
+        WebElement link = driver.findElement(By.linkText("Voltar para Cadastro"));
+        link.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains("index.html"));
+        assertTrue(driver.getCurrentUrl().contains("index.html"));
+    }
+
 
 
 }
