@@ -156,6 +156,8 @@ public class CadastroTest {
                 String valorAtual = cadastroPage.getNomeValue();
                 Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não deve exceder o limite de caracteres!");
             }
+
+
         }
     }
 
@@ -353,6 +355,7 @@ public class CadastroTest {
     }
 
 
+
     // FLUXO ONDE NÃO CADASTRA
     @Test
     @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
@@ -469,6 +472,28 @@ public class CadastroTest {
         long duration = endTime - startTime;
         Assertions.assertTrue(duration < 3000, "A página inicial demorou mais que 3 segundos para carregar!");
     }
+
+    @Test
+    @DisplayName("Testa múltiplos cadastros consecutivos")
+    public void testMultiplosCadastros() {
+        for (int i = 1; i <= 3; i++) {
+            cadastroPage.waitForNomeInput();
+            cadastroPage.waitForIdadeInput();
+
+            String nome = "Pessoa " + i;
+            int idade = 20 + i;
+
+            cadastroPage.preencherCadastro(nome, idade);
+
+            cadastroPage.waitForCadastrarButton();
+            cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+            cadastroPage.clicarCadastrar();
+
+            cadastroPage.waitForPopupAndClickOkButton();
+            Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
+        }
+    }
+
 
 
 
