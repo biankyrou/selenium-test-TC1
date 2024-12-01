@@ -13,10 +13,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.time.Duration;
+
 
 @Suite
 @SelectClasses({
@@ -44,12 +48,13 @@ public class ListaSuiteTest {
     }
 
     @Test
-    public void testDisplayRegisteredPeopleList() {
-        // Verifica se a tabela de pessoas está presente
-        WebElement table = driver.findElement(By.id("pessoasTable"));
-        assertTrue(table.isDisplayed(), "A tabela de pessoas não está visível na página.");
-
-        List<WebElement> rows = table.findElements(By.tagName("tr"));
-        assertTrue(rows.size() > 1, "A tabela de pessoas não contém registros.");
+    public void testListaVazia() {
+        // Verificar se a lista está vazia ao carregar a página
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().isEmpty(), "A lista de pessoas deve estar vazia.");
     }
+
+
+
+
 }
