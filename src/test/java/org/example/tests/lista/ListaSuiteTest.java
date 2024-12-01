@@ -56,6 +56,12 @@ public class ListaSuiteTest {
     }
 
     @Test
+    public void testBotaoVoltarParaCadastroVisivel() {
+        WebElement voltarButton = driver.findElement(By.linkText("Voltar para Cadastro"));
+        assertTrue(voltarButton.isDisplayed());
+    }
+
+    @Test
     public void testExibicaoDePessoas() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -82,6 +88,9 @@ public class ListaSuiteTest {
         wait.until(ExpectedConditions.urlContains("index.html"));
         assertTrue(driver.getCurrentUrl().contains("index.html"));
     }
+
+
+
 
 
 
