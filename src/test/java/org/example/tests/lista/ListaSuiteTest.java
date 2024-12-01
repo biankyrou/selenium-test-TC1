@@ -108,6 +108,12 @@ public class ListaSuiteTest {
         assertTrue(idadeInput.getText().isEmpty());
     }
 
+    @Test
+    public void testNaoExibirRemoverBotaoEmListaVazia() {
+        WebElement listaPessoas = driver.findElement(By.id("listaPessoas"));
+        List<WebElement> removerButtons = driver.findElements(By.xpath("//button[text()='Remover']"));
+        assertTrue(removerButtons.isEmpty(), "Não deveria existir botão de remover na lista vazia.");
+    }
 
 
 
