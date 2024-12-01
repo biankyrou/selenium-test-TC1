@@ -151,6 +151,18 @@ public class ListaSuiteTest {
                 "A ordem dos nomes deve ser 'Ana', 'Bruno' e 'Clara'.");
     }
 
+    @Test
+    @DisplayName("Persistência de dados após recarregar")
+    public void testPersistenciaDados() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Eduarda', idade: 28 }]))");
+        driver.navigate().refresh();
+
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().contains("Eduarda"), "A lista deve exibir 'Eduarda' após recarregar.");
+    }
+
+
 
 
 
