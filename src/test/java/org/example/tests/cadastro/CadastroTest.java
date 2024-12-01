@@ -376,6 +376,24 @@ public class CadastroTest {
         boolean pessoaCadastrada = listapage.isPessoaNaLista(nome);
         Assertions.assertTrue(pessoaCadastrada, "Pessoa cadastrada");
     }
+    @Test
+    @DisplayName("Cadastro com dados excessivamente longos")
+    public void testCadastroComDadosLongos() {
+        Faker faker = new Faker();
+        String nomeLongo = faker.lorem().characters(300); // Nome muito longo
+        String enderecoLongo = faker.lorem().characters(500); // Endereço muito longo
+        int idadeAleatoria = 35;
+
+        cadastroPage.waitForNomeInput();
+        cadastroPage.preencherCadastro(nomeLongo, idadeAleatoria);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+
+    }
+
 
 
 
@@ -548,6 +566,8 @@ public class CadastroTest {
         cadastroPage.waitForPopupAndClickOkButton();
         Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
     }
+
+
 
 
 
