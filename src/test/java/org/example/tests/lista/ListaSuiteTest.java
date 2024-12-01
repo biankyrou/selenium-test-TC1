@@ -123,10 +123,16 @@ public class ListaSuiteTest {
         assertTrue(removerButtons.isEmpty(), "Não deveria existir botão de remover na lista vazia.");
     }
 
+    @Test
+    @DisplayName("Adicionar pessoa à lista e verificar exibição")
+    public void testAdicionarPessoa() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Carlos', idade: 40 }]))");
+        driver.navigate().refresh();
 
-
-
-
+        WebElement lista = driver.findElement(By.id("listaPessoas"));
+        assertTrue(lista.getText().contains("Carlos"), "A lista deveria conter 'Carlos'");
+    }
 
 
 
