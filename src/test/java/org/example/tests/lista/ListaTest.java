@@ -15,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 import static org.asynchttpclient.util.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -117,14 +119,34 @@ public class ListaTest {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Marcela', idade: 27 }]))");
         driver.navigate().refresh();
-
         listaPage.clicarVoltar();
-
         driver.navigate().back();
 
-        //WebElement lista = driver.findElement(By.id("listaPessoas"));
         WebElement lista = listaPage.getListaPessoas();
         assertTrue(lista.getText().contains("Marcela"), "A lista deve conter 'Marcela' ao voltar para a página.");
     }
+
+    @Test
+    @DisplayName("Persistência de dados após recarregar")
+    public void testPersistenciaDados() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Eduarda', idade: 28 }]))");
+        driver.navigate().refresh();
+
+        WebElement lista = listaPage.getListaPessoas();
+        assertTrue(lista.getText().contains("Eduarda"), "A lista deve exibir 'Eduarda' após recarregar.");
+    }
+
+    @Test
+    @DisplayName("Não exibir botão 'Remover' em lista vazia")
+    public void testNaoExibirRemoverBotaoEmListaVazia() {
+        WebElement lista = listaPage.getListaPessoas();
+        assertNotNull(lista, "A lista de pessoas não deveria ser nula.");
+
+        List<WebElement> removerButtons = listaPage.getRemoveButtons();
+        assertTrue(removerButtons.isEmpty(), "Não deveria existir botão de remover em uma lista vazia.");
+    }
+
+
 
 }
