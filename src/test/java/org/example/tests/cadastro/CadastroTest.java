@@ -98,6 +98,14 @@ public class CadastroTest {
         Assertions.assertEquals("João Silva", valorAtual, "O campo 'Nome' deve aceitar valores válidos colados!");
     }
 
+    @Test
+    @DisplayName("Verifica comportamento ao colar valores inválidos no campo de nome")
+    public void testColarValorInvalidoNome() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.colarNome("");
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertTrue(valorAtual.isEmpty(), "O campo 'Nome' deve estar vazio ao colar valores inválidos!");
+    }
 
 
 
