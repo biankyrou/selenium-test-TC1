@@ -106,6 +106,19 @@ public class CadastroPage {
         return Integer.parseInt(valor);  // Converte a String para Integer
     }
 
+    public Integer getIdadeString() {
+        String valor = idadeInput.getAttribute("value");
+        if (valor == null || valor.isEmpty()) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(valor);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+
     public WebElement getCadastrarButton() {
         return cadastrarButton;
     }
