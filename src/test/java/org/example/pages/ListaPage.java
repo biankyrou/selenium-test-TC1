@@ -12,8 +12,9 @@ import java.util.List;
 public class ListaPage {
     private WebDriver driver;
 
-    public ListaPage(WebDriver driver){
+    public ListaPage(WebDriver driver, WebElement listaPessoas){
         this.driver = driver;
+        this.listaPessoas = listaPessoas;
         PageFactory.initElements(driver, this);
     }
 
@@ -63,6 +64,10 @@ public class ListaPage {
     public void clicarBotaoExcluir(int indice) {
         WebElement botaoExcluir = getBotaoExcluir(indice);
         botaoExcluir.click();
+    }
+
+    public WebElement getListaPessoas() {
+        return listaPessoas;
     }
 
 

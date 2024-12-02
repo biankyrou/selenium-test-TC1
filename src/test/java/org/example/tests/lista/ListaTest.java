@@ -6,9 +6,15 @@ import org.example.pages.CadastroPage;
 import org.example.pages.ListaPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ListaTest {
     private WebDriver driver;
@@ -27,4 +33,13 @@ public class ListaTest {
     public void tearDown(){
 //        driver.quit();
     }
+
+
+    @Test
+    @DisplayName("Verificar se a lista de pessoas está vazia")
+    public void testListaVazia() {
+        WebElement lista = listaPage.getListaPessoas();
+        assertTrue(lista.getText().isEmpty(), "A lista de pessoas deve estar vazia.");
+    }
+
 }
