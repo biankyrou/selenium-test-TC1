@@ -170,4 +170,9 @@ public class CadastroPage {
         idadeInput.sendKeys(valor);
     }
 
+    public void colarNome(String valor) {
+        nomeInput.click();
+        nomeInput.sendKeys(valor);
+    }
+
 }
