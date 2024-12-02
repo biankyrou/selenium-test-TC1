@@ -12,6 +12,11 @@ import java.util.List;
 public class ListaPage {
     private WebDriver driver;
 
+    public ListaPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
     public ListaPage(WebDriver driver, WebElement listaPessoas){
         this.driver = driver;
         this.listaPessoas = listaPessoas;
