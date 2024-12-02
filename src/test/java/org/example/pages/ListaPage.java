@@ -23,6 +23,9 @@ public class ListaPage {
         PageFactory.initElements(driver, this);
     }
 
+    @FindBy(xpath = "//button[text()='Remover']")
+    private List<WebElement> buttonsRemover;
+
     @FindBy(xpath = "//*[@id=\"listaPessoas\"]")
     private WebElement listaPessoas;
 
@@ -84,6 +87,12 @@ public class ListaPage {
     public String getTituloLista() {
         return tituloLista.getText();
     }
+
+    public List<WebElement> getRemoveButtons() {
+        return buttonsRemover;
+    }
+
+
 
 
     //*[@id="listaPessoas"]/li[1]/div/button[1]
