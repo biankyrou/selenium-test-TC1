@@ -77,8 +77,8 @@ public class ListaPage {
     public WebElement getListaPessoas() {
         return listaPessoas;
     }
-    public WebElement getTituloLista() {
-        return tituloLista;
+    public String getTituloLista() {
+        return tituloLista.getText();
     }
 
 
