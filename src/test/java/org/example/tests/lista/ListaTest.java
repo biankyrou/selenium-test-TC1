@@ -14,7 +14,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.asynchttpclient.util.Assertions.assertNotNull;
@@ -24,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ListaTest {
     private WebDriver driver;
     private ListaPage listaPage;
+    private CadastroPage cadastroPage;
     private final Faker faker = new Faker();
 
     @BeforeEach
@@ -145,6 +149,38 @@ public class ListaTest {
 
         List<WebElement> removerButtons = listaPage.getRemoveButtons();
         assertTrue(removerButtons.isEmpty(), "Não deveria existir botão de remover em uma lista vazia.");
+    }
+
+    @Test
+    @DisplayName("Verificar estado da página ao voltar para o cadastro")
+    public void testBotaoVoltarParaCadastroEstadoPagina() {
+        listaPage.clicarVoltar();
+        WebElement nomeInput = driver.findElement(By.id("nome"));
+        WebElement idadeInput = driver.findElement(By.id("idade"));
+        assertTrue(nomeInput.getText().isEmpty(), "O campo nome deve estar vazio.");
+        assertTrue(idadeInput.getText().isEmpty(), "O campo idade deve estar vazio.");
+    }
+
+    @Test
+    @DisplayName("Exibir pessoas cadastradas na lista")
+    public void testExibicaoDePessoas() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'João', idade: 25 }, { nome: 'Maria', idade: 30 }]))");
+        driver.navigate().refresh();
+
+        WebElement lista = listaPage.getListaPessoas();
+        assertTrue(lista.getText().contains("João"), "A lista deve conter 'João'.");
+        assertTrue(lista.getText().contains("Maria"), "A lista deve conter 'Maria'.");
+    }
+
+
+    @Test
+    @DisplayName("Testar link 'Voltar para Cadastro'")
+    public void testLinkVoltarParaCadastro() {
+        listaPage.voltarParaCadastroButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains("index.html"));
+        assertTrue(driver.getCurrentUrl().contains("index.html"), "A navegação deve levar à página index.html.");
     }
 
 
