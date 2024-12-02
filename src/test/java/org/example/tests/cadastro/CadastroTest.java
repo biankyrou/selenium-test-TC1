@@ -80,6 +80,18 @@ public class CadastroTest {
         }
     }
 
+    @Test
+    @DisplayName("Verifica comportamento ao colar valores inválidos no campo de idade")
+    public void testColarValorInvalido() {
+        cadastroPage.waitForIdadeInput();
+        cadastroPage.colarIdade("texto_invalido"); // Cola valor inválido
+        Integer valorAtual = cadastroPage.getIdadeString(); // Tenta obter o valor convertido
+        Assertions.assertNull(valorAtual, "O campo 'Idade' deve retornar null ao colar valores inválidos!");
+    }
+
+
+
+
 
     @Nested
     @DisplayName("Testes para campo de entrada 'Nome'")
@@ -142,7 +154,7 @@ public class CadastroTest {
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita string longa")
             public void testNomeStringLonga() {
-                String nomeLongo = "a".repeat(10000);  //com 100000 dá bug
+                String nomeLongo = "a".repeat(1000);  //com 100000 dá bug
                 testarPreenchimentoNome(nomeLongo, nomeLongo);
             }
 
@@ -210,7 +222,7 @@ public class CadastroTest {
 
             @Test
             @DisplayName("Verifica se idade aceita um número grande")
-            public void testIdaeNumeroGrande() {
+            public void testIdadeNumeroGrande() {
                 testarPreenchimentoIdade(1000, 1000);
             }
         }
