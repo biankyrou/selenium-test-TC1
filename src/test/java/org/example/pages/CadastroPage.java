@@ -152,4 +152,9 @@ public class CadastroPage {
         okPopUpButton.click();
     }
 
+    public void colarIdade(String valor) {
+        idadeInput.click();
+        idadeInput.sendKeys(valor);
+    }
+
 }
