@@ -27,7 +27,10 @@ public class ListaPage {
     private WebElement listaPessoas;
 
     @FindBy(xpath = "/html/body/div/a")
-    private WebElement voltarParaCadastroButton;
+    public WebElement voltarParaCadastroButton;
+
+    @FindBy(xpath = "/html/body/div/h1")
+    private WebElement tituloLista;
 
     public boolean isPessoaNaLista(String nome) {
         List<WebElement> listaDePessoas = driver.findElements(By.xpath("//*[@id='listaPessoas']/li"));
@@ -73,6 +76,9 @@ public class ListaPage {
 
     public WebElement getListaPessoas() {
         return listaPessoas;
+    }
+    public WebElement getTituloLista() {
+        return tituloLista;
     }
 
 
