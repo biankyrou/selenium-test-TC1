@@ -3,10 +3,7 @@ package org.example.tests.lista;
 import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.CadastroPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.openqa.selenium.By;
@@ -199,6 +196,17 @@ public class ListaSuiteTest {
 
         WebElement lista = driver.findElement(By.id("listaPessoas"));
         assertTrue(lista.getText().contains("José@#$%"), "A lista deve exibir 'José@#$%' corretamente.");
+    }
+
+    @Test
+    @DisplayName("Exibir botão 'Editar' para cada pessoa na lista")
+    public void testExibirBotaoEditar() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Marcio', idade: 25 }, { nome: 'Mariana', idade: 30 }]))");
+        driver.navigate().refresh();
+
+        List<WebElement> editarButtons = driver.findElements(By.xpath("//button[text()='Editar']"));
+        assertEquals(2, editarButtons.size(), "Deve existir um botão 'Editar' para cada pessoa na lista.");
     }
 
 
