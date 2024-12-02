@@ -59,16 +59,6 @@ public class ListaTest {
         assertTrue(listaPage.voltarParaCadastroButton.isDisplayed(), "O botão 'Voltar para Cadastro' deve estar visível.");
     }
 
-    @Test
-    @DisplayName("Adicionar pessoa à lista e verificar exibição")
-    public void testAdicionarPessoa() {
-        String nome = "Carlos";
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: '" + nome + "', idade: 40 }]))");
-        driver.navigate().refresh();
-
-        assertTrue(listaPage.isPessoaNaLista(nome), "A lista deve conter a pessoa adicionada: " + nome);
-    }
 
     @Test
     @DisplayName("Adicionar múltiplas pessoas e verificar ordem")
@@ -119,6 +109,22 @@ public class ListaTest {
     public void testNavegacaoCadastro() {
         listaPage.voltarParaCadastroButton.click();
         assertTrue(driver.getCurrentUrl().endsWith("index.html"), "Deve navegar de volta para a página de cadastro.");
+    }
+
+    @Test
+    @DisplayName("Persistência de dados ao voltar de outra página")
+    public void testPersistenciaAoVoltar() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Marcela', idade: 27 }]))");
+        driver.navigate().refresh();
+
+        listaPage.clicarVoltar();
+
+        driver.navigate().back();
+
+        //WebElement lista = driver.findElement(By.id("listaPessoas"));
+        WebElement lista = listaPage.getListaPessoas();
+        assertTrue(lista.getText().contains("Marcela"), "A lista deve conter 'Marcela' ao voltar para a página.");
     }
 
 }

@@ -43,6 +43,10 @@ public class ListaPage {
         return false;
     }
 
+    public void clicarVoltar(){
+        voltarParaCadastroButton.click();
+    }
+
     public int encontrarIndicePessoa(String nome) {
         List<WebElement> listaDePessoas = driver.findElements(By.xpath("//*[@id='listaPessoas']/li"));
 
