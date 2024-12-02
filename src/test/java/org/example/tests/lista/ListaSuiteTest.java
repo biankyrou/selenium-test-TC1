@@ -209,6 +209,19 @@ public class ListaSuiteTest {
         assertEquals(2, editarButtons.size(), "Deve existir um botão 'Editar' para cada pessoa na lista.");
     }
 
+    @Test
+    @DisplayName("Exibir botão 'Remover' para cada pessoa na lista")
+    public void testExibirBotaoRemover() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'João', idade: 25 }, { nome: 'Maria', idade: 30 }]))");
+        driver.navigate().refresh();
+
+        List<WebElement> removerButtons = driver.findElements(By.xpath("//button[text()='Remover']"));
+        assertEquals(2, removerButtons.size(), "Deve existir um botão 'Remover' para cada pessoa na lista.");
+    }
+
+
+
 
 
 }
