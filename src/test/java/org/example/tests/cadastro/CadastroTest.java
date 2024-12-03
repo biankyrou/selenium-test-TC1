@@ -80,7 +80,14 @@ public class CadastroTest {
         }
     }
 
-    //TESTES COPIAR E COLAR
+    @Test
+    @DisplayName("Verifica comportamento ao colar valores com espaços extras no campo de nome")
+    public void testColarValorComEspacosNome() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.colarNome("  João da Silva  "); // Cola um valor com espaços extras
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("  João da Silva  ", valorAtual, "O campo 'Nome' deve preservar espaços colados!");
+    }
 
     @Test
     @DisplayName("Verifica comportamento ao colar valores inválidos no campo de idade")
