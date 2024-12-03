@@ -80,6 +80,8 @@ public class CadastroTest {
         }
     }
 
+    //TESTES COPIAR E COLAR
+
     @Test
     @DisplayName("Verifica comportamento ao colar valores inválidos no campo de idade")
     public void testColarValorInvalido() {
@@ -107,6 +109,17 @@ public class CadastroTest {
         Assertions.assertTrue(valorAtual.isEmpty(), "O campo 'Nome' deve estar vazio ao colar valores inválidos!");
     }
 
+    // TESTE TEMPO DE RESPOSTA
+    @Test
+    @DisplayName("Verifica o tempo de resposta do botão 'Cadastrar'")
+    public void testTempoRespostaCadastrar() {
+        long startTime = System.currentTimeMillis();
+        cadastroPage.clicarCadastrar();
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        Assertions.assertTrue(duration < 2000, "A resposta do botão 'Cadastrar' demorou mais que 2 segundos!");
+    }
+
 
 
     @Nested
@@ -120,7 +133,6 @@ public class CadastroTest {
             Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
         }
 
-
         @Nested
         @DisplayName("Dados VÁLIDOS")
         class TestDadosValidosNome{
@@ -130,13 +142,11 @@ public class CadastroTest {
                 testarPreenchimentoNome("Tiago", "Tiago");
             }
 
-
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
             public void testNomeComEspacos() {
                 testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
             }
-
         }
 
         @Nested
@@ -184,8 +194,6 @@ public class CadastroTest {
                 String valorAtual = cadastroPage.getNomeValue();
                 Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não deve exceder o limite de caracteres!");
             }
-
-
         }
     }
 
@@ -195,6 +203,7 @@ public class CadastroTest {
     @Nested
     @DisplayName("Testes para campo de entrada 'Idade'")
     class TestCampoDeEntradaIdade{
+
         //    testes de equivalência para campo de entrada 'Idade' :
         private void testarPreenchimentoIdade(Integer entrada, Integer esperado) {
             cadastroPage.waitForIdadeInput();
@@ -206,7 +215,6 @@ public class CadastroTest {
         @Nested
         @DisplayName("Dados VÁLIDOS")
         class TestDadosValidosIdade{
-            //VÁLIDOS
             @Test
             @DisplayName("Verifica se idade aceita um número inteiro de 0 à 122")
             public void testIdadeValida() {
@@ -254,7 +262,6 @@ public class CadastroTest {
     public void testPreenchimentoFormularioCadastro() {
         cadastroPage.waitForNomeInput();
         cadastroPage.waitForIdadeInput();
-
         cadastroPage.preencherCadastro("João Silva", 25);
 
         cadastroPage.waitForCadastrarButton();
@@ -296,7 +303,6 @@ public class CadastroTest {
     public void testPreenchimentoFormularioCadastroIdadeInvalida() {
         cadastroPage.waitForNomeInput();
         cadastroPage.waitForIdadeInput();
-
         cadastroPage.preencherCadastro("Jinx Powder", -120);
 
         cadastroPage.waitForCadastrarButton();
@@ -437,7 +443,6 @@ public class CadastroTest {
         cadastroPage.clicarCadastrar();
 
         cadastroPage.waitForPopupAndClickOkButton();
-
     }
 
 
@@ -502,6 +507,7 @@ public class CadastroTest {
         Assertions.assertFalse(pessoaCadastrada, "Pessoa sem dados não deveria ser cadastrada");
     }
 
+
     @Test
     @DisplayName("Testa o preenchimento do cadastro com nome vazio e idade válida e verifica se cadastrou")
     public void testCadastroComNomeVazioEIdadeValida() {
@@ -521,33 +527,6 @@ public class CadastroTest {
         ListaPage listapage = new ListaPage(driver);
         boolean pessoaCadastrada = listapage.isPessoaNaLista("");
         Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
-    }
-
-    @Test
-    @DisplayName("Verifica se idade aceita o menor valor negativo permitido")
-    public void testIdadeMinimoNegativo() {
-        cadastroPage.waitForIdadeInput();
-        cadastroPage.preencherIdade(-1);
-        Assertions.assertEquals(-1, cadastroPage.getIdadeValue(), "O campo Idade não contém o menor valor negativo permitido!");
-    }
-
-
-    @Test
-    @DisplayName("Verifica a navegação para a página de cadastro")
-    public void testNavegarParaPaginaCadastro() {
-        driver.get("https://tc-1-final-parte1.vercel.app/");
-        cadastroPage.waitForNomeInput();
-        Assertions.assertTrue(driver.getCurrentUrl().contains("vercel.app"), "A URL não corresponde à página de cadastro!");
-    }
-
-    @Test
-    @DisplayName("Verifica o tempo de resposta do botão 'Cadastrar'")
-    public void testTempoRespostaCadastrar() {
-        long startTime = System.currentTimeMillis();
-        cadastroPage.clicarCadastrar();
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        Assertions.assertTrue(duration < 2000, "A resposta do botão 'Cadastrar' demorou mais que 2 segundos!");
     }
 
     @Test

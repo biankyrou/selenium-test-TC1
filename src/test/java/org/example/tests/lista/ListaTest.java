@@ -183,6 +183,4 @@ public class ListaTest {
         assertTrue(driver.getCurrentUrl().contains("index.html"), "A navegação deve levar à página index.html.");
     }
 
-
-
 }
