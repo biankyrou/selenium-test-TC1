@@ -120,38 +120,48 @@ public class CadastroTest {
         Assertions.assertTrue(duration < 2000, "A resposta do botão 'Cadastrar' demorou mais que 2 segundos!");
     }
 
+    @Test
+    @DisplayName("Verifica se a página inicial carrega rapidamente")
+    public void testCarregamentoPaginaInicial() {
+        long startTime = System.currentTimeMillis();
+        driver.get("https://tc-1-final-parte1.vercel.app/");
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        Assertions.assertTrue(duration < 3000, "A página inicial demorou mais que 3 segundos para carregar!");
+    }
 
 
     @Nested
     @DisplayName("Testes para campo de entrada 'Nome'")
     class TestCampoDeEntradaNome{
         //testes de equivalência para campo de entrada 'Nome' :
+
         private void testarPreenchimentoNome(String entrada, String esperado) {
             cadastroPage.waitForNomeInput();
             cadastroPage.preencherNome(entrada);
             String valorAtual = cadastroPage.getNomeValue();
             Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não contém o valor esperado!");
         }
-
         @Nested
         @DisplayName("Dados VÁLIDOS")
         class TestDadosValidosNome{
+
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita uma string")
             public void testeNomePadrao(){
                 testarPreenchimentoNome("Tiago", "Tiago");
             }
-
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita uma string com espaços")
             public void testNomeComEspacos() {
                 testarPreenchimentoNome("Tiago de Lemos", "Tiago de Lemos");
             }
-        }
 
+        }
         @Nested
         @DisplayName("Dados INVÁLIDOS")
         class TestDadosInvalidosNome{
+
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita uma string com caracteres especiais")
             public void testNomeComCaracteresEspeciais() {
@@ -183,7 +193,6 @@ public class CadastroTest {
                 String nomeLongo = "a".repeat(1000);  //com 100000 dá bug
                 testarPreenchimentoNome(nomeLongo, nomeLongo);
             }
-
             @Test
             @DisplayName("Deve permitir preencher o campo 'Nome' até o limite de caracteres")
             void testarLimiteDeCaracteresNome() {
@@ -195,26 +204,27 @@ public class CadastroTest {
                 Assertions.assertEquals(esperado, valorAtual, "O campo 'Nome' não deve exceder o limite de caracteres!");
             }
         }
+
     }
 
     //-------------------------------------------------------------------------------------
-
 
     @Nested
     @DisplayName("Testes para campo de entrada 'Idade'")
     class TestCampoDeEntradaIdade{
 
         //    testes de equivalência para campo de entrada 'Idade' :
+
         private void testarPreenchimentoIdade(Integer entrada, Integer esperado) {
             cadastroPage.waitForIdadeInput();
             cadastroPage.preencherIdade(entrada);
             Integer valorAtual = cadastroPage.getIdadeValue();
             Assertions.assertEquals(esperado, valorAtual, "O campo 'Idade' não contém o valor esperado!");
         }
-
         @Nested
         @DisplayName("Dados VÁLIDOS")
         class TestDadosValidosIdade{
+
             @Test
             @DisplayName("Verifica se idade aceita um número inteiro de 0 à 122")
             public void testIdadeValida() {
@@ -226,37 +236,37 @@ public class CadastroTest {
             public void testIdadeNumeroZero() {
                 testarPreenchimentoIdade(0, 0);
             }
-
             @Test
             @DisplayName("Verifica se idade aceita um número inteiro 122 (maior idade registrada)")
             public void testIdadeNumeroMaior() {
                 testarPreenchimentoIdade(122, 122);
             }
-        }
 
+        }
         @Nested
         @DisplayName("Dados INVÁLIDOS")
         class TestDadosInvalidosIdade{
             //INVALIDOS
+
             @Test
             @DisplayName("Verifica se idade aceita um número negativo")
             public void testIdadeNumeroNegativo() {
                 testarPreenchimentoIdade(-1, -1);
             }
-
             @Test
             @DisplayName("Verifica se idade aceita um número grande")
             public void testIdadeNumeroGrande() {
                 testarPreenchimentoIdade(1000, 1000);
             }
         }
+
     }
 
 
     // -----------------PREENCHIMENTO CADASTRO-----------------------
 
-
     // CADASTRO COM SUCESSO VENDO POPUP
+
     @Test
     @DisplayName("Testa o preenchimento do cadastro com válores válidos")
     public void testPreenchimentoFormularioCadastro() {
@@ -338,8 +348,8 @@ public class CadastroTest {
     }
 
 
-
     // VERIFICANDO SE O CADASTRO FOI FEITO COM SUCESSO VENDO A LISTA DE PESSOAS
+
     @Test
     @DisplayName("Testa o preenchimento do cadastro valores válidos")
     public void testPreenchimentoCadastroDadosValidosLista() {
@@ -384,8 +394,8 @@ public class CadastroTest {
     }
 
 
-
     //TESTES COM JAVA FAKER
+
     @Test
     @DisplayName("Testa o preenchimento do cadastro valores válidos")
     public void testPreenchimentoCadastfdddddroDadosValidosLista() {
@@ -425,7 +435,6 @@ public class CadastroTest {
         cadastroPage.clicarCadastrar();
 
         cadastroPage.waitForPopupAndClickOkButton();
-
     }
 
     @Test
@@ -447,8 +456,8 @@ public class CadastroTest {
 
 
 
-
     // FLUXO ONDE NÃO CADASTRA
+
     @Test
     @DisplayName("Testa o preenchimento do cadastro com nome null e verifica se cadastrou")
     public void testPreenchimentoFormularioCadastroNomeNull() {
@@ -529,15 +538,7 @@ public class CadastroTest {
         Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
     }
 
-    @Test
-    @DisplayName("Verifica se a página inicial carrega rapidamente")
-    public void testCarregamentoPaginaInicial() {
-        long startTime = System.currentTimeMillis();
-        driver.get("https://tc-1-final-parte1.vercel.app/");
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        Assertions.assertTrue(duration < 3000, "A página inicial demorou mais que 3 segundos para carregar!");
-    }
+    ////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Testa múltiplos cadastros consecutivos")
