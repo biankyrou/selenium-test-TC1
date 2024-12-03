@@ -52,19 +52,11 @@ public class ListaTest {
     }
 
 
-
     @Test
     @DisplayName("Verificar se a lista de pessoas está vazia")
     public void testListaVazia() {
         assertTrue(listaPage.getListaPessoas().getText().isEmpty(), "A lista de pessoas deve estar vazia.");
     }
-
-    @Test
-    @DisplayName("Verificar se o botão 'Voltar para Cadastro' está visível")
-    public void testBotaoVoltarParaCadastroVisivel() {
-        assertTrue(listaPage.voltarParaCadastroButton.isDisplayed(), "O botão 'Voltar para Cadastro' deve estar visível.");
-    }
-
 
     @Test
     @DisplayName("Adicionar múltiplas pessoas e verificar ordem")
@@ -113,8 +105,14 @@ public class ListaTest {
     @Test
     @DisplayName("Navegar de volta para a página de cadastro")
     public void testNavegacaoCadastro() {
-        listaPage.voltarParaCadastroButton.click();
+        listaPage.clicarVoltar();
         assertTrue(driver.getCurrentUrl().endsWith("index.html"), "Deve navegar de volta para a página de cadastro.");
+    }
+
+    @Test
+    @DisplayName("Verificar se o botão 'Voltar para Cadastro' está visível")
+    public void testBotaoVoltarParaCadastroVisivel() {
+        assertTrue(listaPage.voltarParaCadastroButton.isDisplayed(), "O botão 'Voltar para Cadastro' deve estar visível.");
     }
 
     @Test
@@ -174,13 +172,5 @@ public class ListaTest {
     }
 
 
-    @Test
-    @DisplayName("Testar link 'Voltar para Cadastro'")
-    public void testLinkVoltarParaCadastro() {
-        listaPage.voltarParaCadastroButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("index.html"));
-        assertTrue(driver.getCurrentUrl().contains("index.html"), "A navegação deve levar à página index.html.");
-    }
 
 }

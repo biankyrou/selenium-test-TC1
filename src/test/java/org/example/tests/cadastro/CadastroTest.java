@@ -538,7 +538,9 @@ public class CadastroTest {
         Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
     }
 
-    ////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////
+    //MOVER DE LUGAR: para fluxo que passa!
 
     @Test
     @DisplayName("Testa múltiplos cadastros consecutivos")
