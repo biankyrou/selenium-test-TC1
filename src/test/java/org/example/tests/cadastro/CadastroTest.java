@@ -99,6 +99,16 @@ public class CadastroTest {
     }
 
     @Test
+    @DisplayName("Verifica comportamento ao colar texto com caracteres especiais no campo 'Nome'")
+    public void testColarTextoComCaracteresEspeciaisNome() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.colarNome("João!@# Silva"); // Cola nome com caracteres especiais
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("João!@# Silva", valorAtual, "O campo 'Nome' deve aceitar caracteres especiais!");
+    }
+
+
+    @Test
     @DisplayName("Verifica comportamento ao colar valores inválidos no campo de idade")
     public void testColarValorInvalido() {
         cadastroPage.waitForIdadeInput();
