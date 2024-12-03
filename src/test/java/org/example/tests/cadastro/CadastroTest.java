@@ -116,6 +116,14 @@ public class CadastroTest {
         Assertions.assertEquals("    Mariana Souza    ", valorAtual, "O campo 'Nome' deve preservar os espaços extras!");
     }
 
+    @Test
+    @DisplayName("Verifica comportamento ao colar texto com números no campo 'Nome'")
+    public void testColarTextoComNumerosNome() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.colarNome("Carlinhos123");
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("Carlinhos123", valorAtual, "O campo 'Nome' deve aceitar texto com números!");
+    }
 
     @Test
     @DisplayName("Verifica comportamento ao colar valores inválidos no campo de idade")
