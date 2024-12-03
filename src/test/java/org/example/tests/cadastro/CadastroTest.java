@@ -84,9 +84,18 @@ public class CadastroTest {
     @DisplayName("Verifica comportamento ao colar valores com espaços extras no campo de nome")
     public void testColarValorComEspacosNome() {
         cadastroPage.waitForNomeInput();
-        cadastroPage.colarNome("  João da Silva  "); // Cola um valor com espaços extras
+        cadastroPage.colarNome("  João da Silva  ");
         String valorAtual = cadastroPage.getNomeValue();
         Assertions.assertEquals("  João da Silva  ", valorAtual, "O campo 'Nome' deve preservar espaços colados!");
+    }
+
+    @Test
+    @DisplayName("Verifica comportamento ao colar texto simples no campo 'Nome'")
+    public void testColarTextoSimplesNome() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.colarNome("Ana Paula");
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("Ana Paula", valorAtual, "O campo 'Nome' deve aceitar valores simples colados!");
     }
 
     @Test
