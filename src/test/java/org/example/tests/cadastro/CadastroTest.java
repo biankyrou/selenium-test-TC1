@@ -102,9 +102,18 @@ public class CadastroTest {
     @DisplayName("Verifica comportamento ao colar texto com caracteres especiais no campo 'Nome'")
     public void testColarTextoComCaracteresEspeciaisNome() {
         cadastroPage.waitForNomeInput();
-        cadastroPage.colarNome("João!@# Silva"); // Cola nome com caracteres especiais
+        cadastroPage.colarNome("João!@# Silva");
         String valorAtual = cadastroPage.getNomeValue();
         Assertions.assertEquals("João!@# Silva", valorAtual, "O campo 'Nome' deve aceitar caracteres especiais!");
+    }
+
+    @Test
+    @DisplayName("Verifica comportamento ao colar texto com espaços extras no campo 'Nome'")
+    public void testColarTextoComEspacosExtrasNome() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.colarNome("    Mariana Souza    ");
+        String valorAtual = cadastroPage.getNomeValue();
+        Assertions.assertEquals("    Mariana Souza    ", valorAtual, "O campo 'Nome' deve preservar os espaços extras!");
     }
 
 
