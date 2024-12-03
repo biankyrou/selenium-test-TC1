@@ -126,6 +126,15 @@ public class CadastroTest {
     }
 
     @Test
+    @DisplayName("Verifica comportamento ao colar valor numérico válido no campo 'Idade'")
+    public void testColarValorValidoIdade() {
+        cadastroPage.waitForIdadeInput();
+        cadastroPage.colarIdade("28");
+        Integer valorAtual = cadastroPage.getIdadeValue();
+        Assertions.assertEquals(28, valorAtual, "O campo 'Idade' deve aceitar valores numéricos válidos!");
+    }
+
+    @Test
     @DisplayName("Verifica comportamento ao colar valores inválidos no campo de idade")
     public void testColarValorInvalido() {
         cadastroPage.waitForIdadeInput();
