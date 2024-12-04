@@ -185,5 +185,22 @@ public class ListaTest {
         assertFalse(lista.getText().contains("Roberta"), "A pessoa Roberta não foi removida da lista.");
     }
 
+    @Test
+    @DisplayName("Verificar se o botão 'Excluir' é removido após a exclusão de uma pessoa")
+    public void testExcluirBotaoRemovido() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Violet', idade: 29 }]))");
+        driver.navigate().refresh();
+
+        assertNotNull(listaPage.getBotaoExcluir(1), "Botão 'Excluir' não está visível.");
+
+        listaPage.clicarBotaoExcluir(1);
+        listaPage.confirmarRemover.click();
+        listaPage.okClick.click();
+
+        List<WebElement> removerButtons = listaPage.getRemoveButtons();
+        assertTrue(removerButtons.isEmpty(), "O botão 'Excluir' não foi removido após a exclusão.");
+    }
+
 
 }
