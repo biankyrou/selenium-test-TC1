@@ -219,4 +219,49 @@ public class ListaTest {
         assertFalse(lista.getText().contains("Violet"), "Violet não foi removida da lista após recarregar a página.");
     }
 
+    @Test
+    @DisplayName("Verificar se os dados de uma pessoa são carregados corretamente ao editar")
+    public void testCarregarDadosEditar() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ id: 1, nome: 'Violet', idade: 30 }]))");
+        driver.navigate().refresh();
+
+        listaPage.clicarBotaoEditar(1);
+
+        WebElement idadeInput = driver.findElement(By.id("idade"));
+        System.out.println(idadeInput.getAttribute("value"));
+        assertEquals("30", idadeInput.getAttribute("value"), "O campo 'idade' não está carregado corretamente.");
+    }
+
+//    @Test
+//    @DisplayName("Verificar se os dados são atualizados corretamente após a edição")
+//    public void testAtualizarDadosEditar() {
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Carlos', idade: 25 }]))");
+//        driver.navigate().refresh();
+//
+//        // Clicar no botão "Editar" para Carlos
+//        listaPage.clicarBotaoEditar(1);
+//
+//        // Alterar os dados nos campos de edição
+//        WebElement nomeInput = driver.findElement(By.id("nome"));
+//        nomeInput.clear();
+//        nomeInput.sendKeys("Carlos Silva");
+//
+//        WebElement idadeInput = driver.findElement(By.id("idade"));
+//        idadeInput.clear();
+//        idadeInput.sendKeys("26");
+//
+//        listaPage.salvarBotao.click();
+//        listaPage.okClick.click();
+//
+//
+//        // Verificar se a lista foi atualizada com os novos dados
+//        WebElement lista = listaPage.getListaPessoas();
+//        assertTrue(lista.getText().contains("Carlos Silva"), "Os dados não foram atualizados corretamente.");
+//        assertTrue(lista.getText().contains("26"), "Idade não foi atualizada corretamente.");
+//    }
+
+
+
 }
