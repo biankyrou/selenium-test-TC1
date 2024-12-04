@@ -445,6 +445,26 @@ public class CadastroTest {
         Assertions.assertTrue(pessoaCadastrada, "A pessoa não foi encontrada na lista após cadastro.");
     }
 
+    @Test
+    @DisplayName("Testa múltiplos cadastros consecutivos")
+    public void testMultiplosCadastros() {
+        for (int i = 1; i <= 3; i++) {
+            cadastroPage.waitForNomeInput();
+            cadastroPage.waitForIdadeInput();
+
+            String nome = "Pessoa " + i;
+            int idade = 20 + i;
+
+            cadastroPage.preencherCadastro(nome, idade);
+
+            cadastroPage.waitForCadastrarButton();
+            cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+            cadastroPage.clicarCadastrar();
+
+            cadastroPage.waitForPopupAndClickOkButton();
+            Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
+        }
+    }
 
     //TESTES COM JAVA FAKER
 
@@ -594,26 +614,7 @@ public class CadastroTest {
     ///////////////////////////////////////////////////////////
     //MOVER DE LUGAR: para fluxo que passa!
 
-    @Test
-    @DisplayName("Testa múltiplos cadastros consecutivos")
-    public void testMultiplosCadastros() {
-        for (int i = 1; i <= 3; i++) {
-            cadastroPage.waitForNomeInput();
-            cadastroPage.waitForIdadeInput();
 
-            String nome = "Pessoa " + i;
-            int idade = 20 + i;
-
-            cadastroPage.preencherCadastro(nome, idade);
-
-            cadastroPage.waitForCadastrarButton();
-            cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
-            cadastroPage.clicarCadastrar();
-
-            cadastroPage.waitForPopupAndClickOkButton();
-            Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
-        }
-    }
 
     @Test
     @DisplayName("Testa o cadastro com idade mínima (0 anos)")
