@@ -202,5 +202,21 @@ public class ListaTest {
         assertTrue(removerButtons.isEmpty(), "O botão 'Excluir' não foi removido após a exclusão.");
     }
 
+    @Test
+    @DisplayName("Verificar se a exclusão de uma pessoa atualiza a página corretamente")
+    public void testAtualizarPaginaAposExcluir() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Violet', idade: 26 }]))");
+        driver.navigate().refresh();
+
+        listaPage.clicarBotaoExcluir(1);
+        listaPage.confirmarRemover.click();
+        listaPage.okClick.click();
+
+        driver.navigate().refresh();
+
+        WebElement lista = listaPage.getListaPessoas();
+        assertFalse(lista.getText().contains("Violet"), "Violet não foi removida da lista após recarregar a página.");
+    }
 
 }
