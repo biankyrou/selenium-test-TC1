@@ -35,6 +35,11 @@ public class ListaPage {
     @FindBy(xpath = "/html/body/div/h1")
     private WebElement tituloLista;
 
+    @FindBy(xpath = "/html/body/div[2]/div/div[6]/button[1]")
+    public WebElement confirmarRemover;
+
+
+
     public boolean isPessoaNaLista(String nome) {
         List<WebElement> listaDePessoas = driver.findElements(By.xpath("//*[@id='listaPessoas']/li"));
 

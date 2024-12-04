@@ -21,8 +21,7 @@ import java.time.Duration;
 import java.util.List;
 
 import static org.asynchttpclient.util.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ListaTest {
     private WebDriver driver;
