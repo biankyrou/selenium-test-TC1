@@ -482,6 +482,23 @@ public class CadastroTest {
         Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
     }
 
+
+    @Test
+    @DisplayName("Testa o cadastro com idade máxima (122 anos)")
+    public void testCadastroIdadeMaxima() {
+        cadastroPage.waitForNomeInput();
+        cadastroPage.waitForIdadeInput();
+
+        cadastroPage.preencherCadastro("Pessoa Centenária", 122);
+
+        cadastroPage.waitForCadastrarButton();
+        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
+        cadastroPage.clicarCadastrar();
+
+        cadastroPage.waitForPopupAndClickOkButton();
+        Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
+    }
+
     //TESTES COM JAVA FAKER
 
     @Test
@@ -625,37 +642,6 @@ public class CadastroTest {
         boolean pessoaCadastrada = listapage.isPessoaNaLista("");
         Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    @Test
-    @DisplayName("Testa o cadastro com idade máxima (122 anos)")
-    public void testCadastroIdadeMaxima() {
-        cadastroPage.waitForNomeInput();
-        cadastroPage.waitForIdadeInput();
-
-        cadastroPage.preencherCadastro("Pessoa Centenária", 122);
-
-        cadastroPage.waitForCadastrarButton();
-        cadastroPage.waitForBotaoClicavel(cadastroPage.getCadastrarButton());
-        cadastroPage.clicarCadastrar();
-
-        cadastroPage.waitForPopupAndClickOkButton();
-        Assertions.assertEquals("Sucesso!\nPessoa cadastrada com sucesso!\nOK", cadastroPage.getPopupMessageSuccess());
-    }
-
-
-
-
 
 
 
