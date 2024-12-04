@@ -127,7 +127,6 @@ public class CadastroPage {
         return popup.getText();
     }
 
-
     private void waitForElement(WebElement element) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

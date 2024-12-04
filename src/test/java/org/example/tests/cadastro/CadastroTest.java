@@ -8,15 +8,12 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class CadastroTest {
     private WebDriver driver;
     private CadastroPage cadastroPage;
+    private ListaPage listaPage;
     private final Faker faker = new Faker();
 
     @BeforeEach
@@ -29,14 +26,13 @@ public class CadastroTest {
 
     @AfterEach
     public void tearDown(){
-//        driver.quit();
+        driver.quit();
     }
 
 
     @Nested
     @DisplayName("Testes Funcionais que verificam visibilidade de elementos")
     class TestesFuncionaisVisibilidade{
-        // testes funcionais:
         @Test
         @DisplayName("Verifica se o campo 'Nome' está visível")
         public void testNomeInputVisivel() {
@@ -197,7 +193,6 @@ public class CadastroTest {
         @Nested
         @DisplayName("Dados VÁLIDOS")
         class TestDadosValidosNome{
-
             @Test
             @DisplayName("Verifica se o campo 'Nome' aceita uma string")
             public void testeNomePadrao(){
@@ -642,13 +637,4 @@ public class CadastroTest {
         boolean pessoaCadastrada = listapage.isPessoaNaLista("");
         Assertions.assertFalse(pessoaCadastrada, "Pessoa com nome vazio não deveria ser cadastrada");
     }
-
-
-
-
-//    testes de navegação -> 1- Teste Envio de Formulário
-//    Após preencher os campos, clique no botão "Cadastrar" e verifique se o cadastro foi
-//    realizado com sucesso (isso pode ser validado com uma nova página, mensagem de
-//                           confirmação ou uma lista atualizada de pessoas cadastradas).
-
 }

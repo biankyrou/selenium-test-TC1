@@ -14,10 +14,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.List;
 
 import static org.asynchttpclient.util.Assertions.assertNotNull;
@@ -174,7 +170,8 @@ public class ListaTest {
     @DisplayName("Verificar se a lista de pessoas é atualizada após a exclusão")
     public void testExcluirPessoa() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{id: 1, nome: 'Roberta', idade: 32 }, {id: 1, nome: 'André', idade: 45 }]))");
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{id: 1, nome: 'Roberta', idade: 32 }, " +
+                "{id: 1, nome: 'André', idade: 45 }]))");
         driver.navigate().refresh();
 
         listaPage.clicarBotaoExcluir(1);
@@ -256,14 +253,8 @@ public class ListaTest {
         driver.navigate().refresh();
 
         listaPage.clicarBotaoEditar(1);
-
-        WebElement nomeInput = driver.findElement(By.id("nome"));
-        nomeInput.clear();
-        nomeInput.sendKeys("Carlos Silva");
-
-        WebElement idadeInput = driver.findElement(By.id("idade"));
-        idadeInput.clear();
-        idadeInput.sendKeys("26");
+        cadastroPage.preencherNome("Carlos Silva");
+        cadastroPage.preencherIdade(26);
 
         listaPage.salvarBotao.click();
         listaPage.okClick.click();
