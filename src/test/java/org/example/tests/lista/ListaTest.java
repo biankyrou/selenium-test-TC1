@@ -170,6 +170,20 @@ public class ListaTest {
         assertTrue(lista.getText().contains("Maria"), "A lista deve conter 'Maria'.");
     }
 
+    @Test
+    @DisplayName("Verificar se a lista de pessoas é atualizada após a exclusão")
+    public void testExcluirPessoa() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Roberta', idade: 32 }, { nome: 'André', idade: 45 }]))");
+        driver.navigate().refresh();
+
+        listaPage.clicarBotaoExcluir(1);
+        listaPage.confirmarRemover.click();
+        listaPage.okClick.click();
+
+        WebElement lista = listaPage.getListaPessoas();
+        assertFalse(lista.getText().contains("Roberta"), "A pessoa Roberta não foi removida da lista.");
+    }
 
 
 }
