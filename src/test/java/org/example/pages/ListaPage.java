@@ -38,6 +38,8 @@ public class ListaPage {
     @FindBy(xpath = "/html/body/div[2]/div/div[6]/button[1]")
     public WebElement confirmarRemover;
 
+    @FindBy(xpath = "/html/body/div[2]/div/div[6]/button[1]")
+    public WebElement okClick;
 
 
     public boolean isPessoaNaLista(String nome) {
