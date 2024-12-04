@@ -220,6 +220,21 @@ public class ListaTest {
     }
 
     @Test
+    @DisplayName("Verificar se ao clicar em editar, a página de edição é aberta")
+    public void testNavegacaoParaEdicao() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{id: 1, nome: 'Marcos', idade: 40 }]))");
+        driver.navigate().refresh();
+
+        listaPage.clicarBotaoEditar(1);
+
+        assertTrue(driver.getCurrentUrl().contains("editar"), "A navegação para a página de edição não foi realizada corretamente.");
+
+        WebElement tituloEdicao = driver.findElement(By.tagName("h1"));
+        assertEquals("Editar Pessoa", tituloEdicao.getText(), "O título da página de edição não corresponde.");
+    }
+
+    @Test
     @DisplayName("Verificar se os dados de uma pessoa são carregados corretamente ao editar")
     public void testCarregarDadosEditar() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
