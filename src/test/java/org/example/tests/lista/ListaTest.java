@@ -174,7 +174,7 @@ public class ListaTest {
     @DisplayName("Verificar se a lista de pessoas é atualizada após a exclusão")
     public void testExcluirPessoa() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Roberta', idade: 32 }, { nome: 'André', idade: 45 }]))");
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{id: 1, nome: 'Roberta', idade: 32 }, {id: 1, nome: 'André', idade: 45 }]))");
         driver.navigate().refresh();
 
         listaPage.clicarBotaoExcluir(1);
@@ -189,7 +189,7 @@ public class ListaTest {
     @DisplayName("Verificar se o botão 'Excluir' é removido após a exclusão de uma pessoa")
     public void testExcluirBotaoRemovido() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Violet', idade: 29 }]))");
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{id: 1, nome: 'Violet', idade: 29 }]))");
         driver.navigate().refresh();
 
         assertNotNull(listaPage.getBotaoExcluir(1), "Botão 'Excluir' não está visível.");
@@ -206,7 +206,7 @@ public class ListaTest {
     @DisplayName("Verificar se a exclusão de uma pessoa atualiza a página corretamente")
     public void testAtualizarPaginaAposExcluir() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{ nome: 'Violet', idade: 26 }]))");
+        js.executeScript("localStorage.setItem('pessoas', JSON.stringify([{id: 1, nome: 'Violet', idade: 26 }]))");
         driver.navigate().refresh();
 
         listaPage.clicarBotaoExcluir(1);
